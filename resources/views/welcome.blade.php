@@ -107,7 +107,7 @@
         }
 
         .section-padding {
-            padding: 100px 0;
+            padding: 80px 0;
         }
 
         .text-gold {
@@ -128,6 +128,7 @@
             position: relative;
             overflow: hidden;
             z-index: 1;
+            text-align: center;
         }
 
         .btn::before {
@@ -192,11 +193,15 @@
             font-weight: 600;
             color: var(--text-white);
             letter-spacing: 2px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 1001;
         }
 
         .logo-img {
             height: 40px;
-            width: 80px
+            width: 80px;
         }
 
         .logo span {
@@ -242,11 +247,33 @@
             display: none;
             font-size: 1.5rem;
             cursor: pointer;
+            z-index: 1001;
+        }
+
+        /* Mobile Menu Overlay */
+        .nav-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 998;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .nav-overlay.active {
+            opacity: 1;
+            visibility: visible;
         }
 
         /* --- Hero Section --- */
         .hero {
             height: 100vh;
+            /* Fix for mobile browser address bar */
+            height: 100dvh;
             position: relative;
             display: flex;
             align-items: center;
@@ -291,7 +318,6 @@
             margin-bottom: 20px;
             display: block;
             opacity: 0;
-            /* Animated with GSAP */
             transform: translateY(20px);
         }
 
@@ -435,7 +461,6 @@
             overflow: hidden;
             transition: var(--transition);
             opacity: 0;
-            /* Hidden initially for filtering */
             transform: translateY(20px);
         }
 
@@ -574,16 +599,13 @@
         .modern-testimonials {
             position: relative;
             background-image: url('https://picsum.photos/seed/restaurant_dark_luxury/1920/1080');
-            /* صورة خلفية فاخرة */
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
-            /* تأثير Parallax */
             padding: 120px 0;
             overflow: hidden;
         }
 
-        /* طبقة تعتيم للخلفية */
         .modern-testimonials::before {
             content: '';
             position: absolute;
@@ -603,7 +625,6 @@
             text-align: center;
         }
 
-        /* الكارت الزجاجي */
         .testimonial-card {
             position: absolute;
             top: 0;
@@ -614,26 +635,21 @@
             transform: scale(0.95) translateY(20px);
             transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
             padding: 40px;
-            /* Glassmorphism Effect */
             background: rgba(255, 255, 255, 0.03);
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
             border: 1px solid rgba(212, 175, 55, 0.1);
-            /* حدود ذهبية خفيفة */
             border-radius: 20px;
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
         }
 
-        /* الحالة النشطة */
         .testimonial-card.active {
             opacity: 1;
             visibility: visible;
             transform: scale(1) translateY(0);
             position: relative;
-            /* يصبح مكانه الطبيعي */
         }
 
-        /* علامات التنصيص الكبيرة الخلفية */
         .big-quote {
             position: absolute;
             top: -20px;
@@ -648,7 +664,6 @@
             z-index: -1;
         }
 
-        /* صورة العميل */
         .user-img {
             width: 90px;
             height: 90px;
@@ -658,9 +673,10 @@
             padding: 4px;
             margin-bottom: 25px;
             box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+            margin-left: auto;
+            margin-right: auto;
         }
 
-        /* النجوم */
         .t-stars {
             margin-bottom: 25px;
             color: var(--gold-primary);
@@ -668,7 +684,6 @@
             letter-spacing: 2px;
         }
 
-        /* نص الرسالة */
         .testimonial-text {
             font-family: 'Cormorant Garamond', serif;
             font-size: 2rem;
@@ -682,7 +697,6 @@
             justify-content: center;
         }
 
-        /* معلومات العميل */
         .user-info {
             position: relative;
             display: inline-block;
@@ -704,7 +718,6 @@
             font-family: 'Montserrat', sans-serif;
         }
 
-        /* النقاط (Dots) المحدثة */
         .slider-dots {
             display: flex;
             justify-content: center;
@@ -732,22 +745,6 @@
             box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
         }
 
-        /* تحسينات للموبايل */
-        @media (max-width: 768px) {
-            .testimonial-text {
-                font-size: 1.4rem;
-            }
-
-            .big-quote {
-                font-size: 5rem;
-                top: 0;
-            }
-
-            .modern-testimonials {
-                padding: 60px 0;
-            }
-        }
-
         /* --- Testimonial Form Styles --- */
         .testimonial-form-section {
             background: #0a0a0a;
@@ -763,7 +760,6 @@
             align-items: center;
         }
 
-        /* النص التوضيحي الجانبي */
         .form-intro h3 {
             font-family: 'Cormorant Garamond', serif;
             font-size: 3rem;
@@ -779,7 +775,6 @@
             margin-bottom: 30px;
         }
 
-        /* حاوية الفورم الزجاجية */
         .review-form-card {
             background: #121212;
             padding: 50px;
@@ -788,7 +783,6 @@
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
         }
 
-        /* حقول الإدخال */
         .input-group {
             margin-bottom: 25px;
         }
@@ -814,18 +808,14 @@
             color: #555;
         }
 
-        /* نظام النجوم التفاعلي (CSS Only) */
         .star-rating {
             display: flex;
             flex-direction: row-reverse;
-            /* عكس الاتجاه لجعل hover يملأ النجوم */
             justify-content: flex-end;
-            /* محاذاة لليمين */
             gap: 10px;
             margin-bottom: 30px;
         }
 
-        /* دعم RTL */
         [dir="rtl"] .star-rating {
             justify-content: flex-start;
         }
@@ -839,16 +829,16 @@
             color: #333;
             cursor: pointer;
             transition: color 0.2s;
+            /* Make tap targets bigger for mobile */
+            padding: 5px;
         }
 
-        /* عند النقر أو التحويم، لون النجمة الحالية وما قبلها */
         .star-rating input:checked~label,
         .star-rating label:hover,
         .star-rating label:hover~label {
             color: var(--gold-primary);
         }
 
-        /* زر الإرسال */
         .btn-submit-review {
             background: var(--gold-primary);
             color: #000;
@@ -869,7 +859,6 @@
             box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
         }
 
-        /* رسائل الخطأ */
         .error-msg {
             color: #ff4d4d;
             font-size: 0.8rem;
@@ -877,24 +866,7 @@
             display: block;
         }
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            .form-layout {
-                grid-template-columns: 1fr;
-            }
-
-            .form-intro {
-                text-align: center;
-                margin-bottom: 30px;
-            }
-
-            .review-form-card {
-                padding: 30px 20px;
-            }
-        }
-
         /* --- Reservation Section --- */
-
         .reservation-form {
             background: rgba(18, 18, 18, 0.9);
             backdrop-filter: blur(15px);
@@ -917,7 +889,8 @@
             padding: 15px 0;
             color: var(--text-white);
             font-family: var(--font-sans);
-            font-size: 1rem;
+            font-size: 16px;
+            /* Prevents auto-zoom on iOS */
             transition: var(--transition);
         }
 
@@ -1000,6 +973,10 @@
             color: var(--bg-dark);
         }
 
+        .map-wrapper {
+            overflow: hidden;
+        }
+
         .map-frame {
             width: 100%;
             height: 100%;
@@ -1020,12 +997,37 @@
             font-size: 1.8rem;
             color: var(--text-white);
             margin-bottom: 20px;
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .copyright {
             color: var(--text-muted);
             font-size: 0.8rem;
+            margin-bottom: 20px;
+        }
+
+        .newsletter-form {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .newsletter-form input {
+            padding: 12px 15px;
+            border: 1px solid #333;
+            background: #000;
+            color: #fff;
+            min-width: 250px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .newsletter-form button {
+            padding: 12px 25px;
+            font-size: 0.75rem;
         }
 
         /* --- RTL Support --- */
@@ -1064,6 +1066,157 @@
             margin-left: 15px;
         }
 
+        /* --- Modern FAQ Section Styles --- */
+        .faq-section-wrapper {
+            background: linear-gradient(180deg, #0a0a0a 0%, #050505 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .faq-section-wrapper::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .faq-header h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3rem;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .faq-header p {
+            color: var(--gold-primary);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+        }
+
+        .faq-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            margin-bottom: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .faq-card:hover {
+            border-color: rgba(212, 175, 55, 0.2);
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .faq-btn {
+            width: 100%;
+            background: transparent;
+            border: none;
+            padding: 20px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            text-align: right;
+            transition: background 0.3s;
+        }
+
+        .faq-btn:hover {
+            background: rgba(255, 255, 255, 0.01);
+        }
+
+        .faq-question {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.4rem;
+            color: #e0e0e0;
+            font-weight: 600;
+            transition: color 0.3s;
+            text-align: start;
+        }
+
+        .faq-card.active .faq-question {
+            color: var(--gold-primary);
+        }
+
+        .faq-icon {
+            font-size: 1.2rem;
+            color: var(--gold-primary);
+            transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 50%;
+            flex-shrink: 0;
+            margin-left: 15px;
+        }
+
+        [dir="rtl"] .faq-icon {
+            margin-left: 0;
+            margin-right: 15px;
+        }
+
+        .faq-card.active .faq-icon {
+            transform: rotate(135deg);
+            background: var(--gold-primary);
+            color: #000;
+        }
+
+        .faq-body {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out, padding 0.4s ease;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .faq-content {
+            padding: 0 25px 25px 25px;
+            color: #a0a0a0;
+            line-height: 1.8;
+            font-size: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.03);
+            margin-top: 10px;
+            padding-top: 20px;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: opacity 0.4s ease 0.1s, transform 0.4s ease 0.1s;
+        }
+
+        .faq-card.active .faq-content {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .faq-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--gold-primary);
+            transform: scaleY(0);
+            transition: transform 0.3s ease;
+            transform-origin: bottom;
+        }
+
+        .faq-card.active::after {
+            transform: scaleY(1);
+        }
+
+        [dir="rtl"] .faq-card::after {
+            right: auto;
+            left: 0;
+        }
+
         /* --- Responsive Design --- */
         @media (max-width: 992px) {
             .hero-title {
@@ -1088,23 +1241,28 @@
         }
 
         @media (max-width: 768px) {
+            .section-padding {
+                padding: 60px 0;
+            }
+
             .nav-links {
                 position: fixed;
                 top: 0;
                 right: -100%;
                 width: 80%;
-                height: 100vh;
+                height: 100%;
                 background: var(--bg-charcoal);
                 flex-direction: column;
                 justify-content: center;
                 align-items: center;
-                transition: 0.5s;
+                transition: right 0.4s ease-in-out;
                 z-index: 999;
             }
 
             [dir="rtl"] .nav-links {
                 right: auto;
                 left: -100%;
+                transition: left 0.4s ease-in-out;
             }
 
             .nav-links.active {
@@ -1117,15 +1275,27 @@
 
             .mobile-toggle {
                 display: block;
-                z-index: 1001;
             }
 
             .hero-title {
-                font-size: 2.5rem;
+                font-size: 2.8rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+                letter-spacing: 3px;
             }
 
             .hero-buttons {
                 flex-direction: column;
+                gap: 15px;
+                align-items: center;
+            }
+
+            .about-text h2,
+            .section-header h2,
+            .faq-header h2 {
+                font-size: 2.2rem;
             }
 
             .form-row {
@@ -1133,8 +1303,14 @@
                 gap: 0;
             }
 
+            .reservation-form {
+                padding: 30px 20px;
+            }
+
             .stats-container {
                 grid-template-columns: 1fr;
+                text-align: center;
+                gap: 15px;
             }
 
             .gallery-grid {
@@ -1155,166 +1331,349 @@
             .filter-btn {
                 font-size: 1.2rem;
             }
+
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .modern-testimonials {
+                padding: 60px 0;
+                background-attachment: scroll;
+                /* Fix for iOS parallax bug */
+            }
+
+            .testimonial-text {
+                font-size: 1.4rem;
+                min-height: auto;
+            }
+
+            .big-quote {
+                font-size: 5rem;
+                top: 0;
+            }
+
+            .testimonial-card {
+                padding: 20px;
+            }
+
+            .form-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .form-intro {
+                text-align: center;
+                margin-bottom: 30px;
+            }
+
+            .review-form-card {
+                padding: 30px 20px;
+            }
+
+            .contact-info {
+                padding: 30px 20px;
+            }
+
+            .map-frame {
+                min-height: 300px;
+            }
         }
 
-        /* --- Modern FAQ Section Styles --- */
-        .faq-section-wrapper {
-            background: linear-gradient(180deg, #0a0a0a 0%, #050505 100%);
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 2.2rem;
+            }
+
+            .btn {
+                padding: 12px 25px;
+                font-size: 0.75rem;
+                letter-spacing: 1px;
+            }
+        }
+
+
+        /* --- Luxury Limited Offer Section --- */
+        .luxury-offer-wrapper {
             position: relative;
+            padding: 120px 0;
+            background: linear-gradient(180deg, #0a0a0a 0%, #050505 50%, #0a0a0a 100%);
             overflow: hidden;
         }
 
-        /* زخرفة خلفية خفيفة */
-        .faq-section-wrapper::before {
+
+        .luxury-offer-wrapper::before {
             content: '';
             position: absolute;
-            top: -50px;
-            right: -50px;
-            width: 300px;
-            height: 300px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 800px;
+            height: 800px;
             background: radial-gradient(circle, rgba(212, 175, 55, 0.08) 0%, transparent 70%);
-            border-radius: 50%;
             pointer-events: none;
         }
 
-        .faq-header h2 {
-            font-family: 'Cormorant Garamond', serif;
-            /* خط فخم */
-            font-size: 3rem;
-            color: #fff;
-            margin-bottom: 10px;
+        .luxury-offer-layout {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 80px;
+            align-items: center;
+            position: relative;
+            z-index: 2;
         }
 
-        .faq-header p {
-            color: var(--gold-primary);
-            /* اللون الذهبي أو استخدم لونك المفضل */
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            font-size: 0.9rem;
-        }
 
-        /* تصميم الكرت */
-        .faq-card {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 12px;
-            margin-bottom: 15px;
-            overflow: hidden;
-            transition: all 0.3s ease;
+        .luxury-offer-image-side {
             position: relative;
         }
 
-        /* تأثير التحويم */
-        .faq-card:hover {
-            border-color: rgba(212, 175, 55, 0.2);
-            background: rgba(255, 255, 255, 0.04);
-        }
-
-        /* زر السؤال */
-        .faq-btn {
-            width: 100%;
-            background: transparent;
-            border: none;
-            padding: 20px 25px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-            text-align: right;
-            transition: background 0.3s;
-        }
-
-        .faq-btn:hover {
-            background: rgba(255, 255, 255, 0.01);
-        }
-
-        /* نص السؤال */
-        .faq-question {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.4rem;
-            color: #e0e0e0;
-            font-weight: 600;
-            transition: color 0.3s;
-        }
-
-        /* عند الفتح */
-        .faq-card.active .faq-question {
-            color: var(--gold-primary);
-        }
-
-        /* الأيقونة */
-        .faq-icon {
-            font-size: 1.2rem;
-            color: var(--gold-primary);
-            transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-            width: 30px;
-            height: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px solid rgba(212, 175, 55, 0.2);
+        .luxury-img-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            height: 80%;
+            background: rgba(212, 175, 55, 0.2);
+            filter: blur(80px);
             border-radius: 50%;
+            z-index: -1;
+            animation: pulseGlow 4s infinite alternate;
         }
 
-        .faq-card.active .faq-icon {
-            transform: rotate(135deg);
-            /* تدوير علامة + لتصبح x */
-            background: var(--gold-primary);
-            color: #000;
+        @keyframes pulseGlow {
+            0% {
+                opacity: 0.3;
+                transform: translate(-50%, -50%) scale(0.9);
+            }
+
+            100% {
+                opacity: 0.6;
+                transform: translate(-50%, -50%) scale(1.1);
+            }
         }
 
-        /* الإجابة */
-        .faq-body {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.4s ease-out, padding 0.4s ease;
-            background: rgba(0, 0, 0, 0.2);
+        .luxury-offer-img {
+            width: 100%;
+            height: 550px;
+            object-fit: cover;
+            border-radius: 12px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8);
+            transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
-        .faq-card.active .faq-body {
-            /* سيتم تحديد الارتفاع بالجافاسكريبت */
+        .luxury-offer-img:hover {
+            transform: scale(1.03);
         }
 
-        .faq-content {
-            padding: 0 25px 25px 25px;
-            color: #a0a0a0;
-            line-height: 1.8;
+        .luxury-offer-badge {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            background: rgba(10, 10, 10, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--gold-primary);
+            color: var(--gold-primary);
+            padding: 10px 25px;
+            font-family: var(--font-sans);
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-radius: 50px;
+            animation: badgePulse 2s infinite;
+        }
+
+        .luxury-offer-badge i {
+            margin-right: 8px;
+        }
+
+        @keyframes badgePulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.7);
+            }
+
+            70% {
+                box-shadow: 0 0 0 15px rgba(212, 175, 55, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(212, 175, 55, 0);
+            }
+        }
+
+
+        .luxury-offer-content {
+            padding: 20px 0;
+        }
+
+        .luxury-eyebrow {
+            color: var(--gold-primary);
             font-size: 1rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.03);
-            margin-top: 10px;
-            padding-top: 20px;
-            opacity: 0;
-            transform: translateY(-10px);
-            transition: opacity 0.4s ease 0.1s, transform 0.4s ease 0.1s;
+            text-transform: uppercase;
+            letter-spacing: 6px;
+            margin-bottom: 15px;
+            font-weight: 500;
         }
 
-        .faq-card.active .faq-content {
-            opacity: 1;
-            transform: translateY(0);
+        .luxury-offer-title {
+            font-family: var(--font-serif);
+            font-size: 4rem;
+            line-height: 1.1;
+            color: var(--text-white);
+            margin-bottom: 25px;
+            background: linear-gradient(45deg, #fff, #D4AF37);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        /* شريط جانبي ملون عند الفتح */
-        .faq-card::after {
+        .luxury-offer-desc {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 35px;
+        }
+
+        .luxury-pricing {
+            margin-bottom: 45px;
+            display: flex;
+            align-items: baseline;
+            gap: 20px;
+        }
+
+        .luxury-old-price {
+            font-size: 1.8rem;
+            color: #666;
+            text-decoration: line-through;
+        }
+
+        .luxury-new-price {
+            font-size: 3.5rem;
+            font-family: var(--font-serif);
+            color: var(--gold-primary);
+            font-weight: 600;
+            text-shadow: 0 0 30px rgba(212, 175, 55, 0.4);
+        }
+
+
+        .luxury-countdown-head {
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+
+        .luxury-countdown {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 50px;
+        }
+
+        .luxury-time-box {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 12px;
+            padding: 20px 25px;
+            text-align: center;
+            min-width: 90px;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+
+        .luxury-time-box::before {
             content: '';
             position: absolute;
             top: 0;
-            right: 0;
-            width: 4px;
-            height: 100%;
-            background: var(--gold-primary);
-            transform: scaleY(0);
-            transition: transform 0.3s ease;
-            transform-origin: bottom;
+            left: -50%;
+            width: 200%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.5), transparent);
         }
 
-        .faq-card.active::after {
-            transform: scaleY(1);
+        .lux-time-num {
+            font-family: var(--font-serif);
+            font-size: 3rem;
+            color: var(--text-white);
+            font-weight: 600;
+            display: block;
+            line-height: 1;
         }
 
-        /* دعم الـ RTL */
-        [dir="rtl"] .faq-card::after {
-            right: auto;
-            left: 0;
+        .lux-time-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--gold-primary);
+            margin-top: 8px;
+            display: block;
+        }
+
+        .luxury-time-sep {
+            font-size: 3rem;
+            color: rgba(212, 175, 55, 0.3);
+            font-weight: 100;
+            margin-bottom: 25px;
+        }
+
+        .luxury-offer-btn {
+            padding: 18px 45px;
+            font-size: 1rem;
+            letter-spacing: 3px;
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+        }
+
+
+        @media (max-width: 992px) {
+            .luxury-offer-layout {
+                grid-template-columns: 1fr;
+                gap: 50px;
+            }
+
+            .luxury-offer-title {
+                font-size: 3rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .luxury-offer-wrapper {
+                padding: 80px 0;
+            }
+
+            .luxury-offer-title {
+                font-size: 2.5rem;
+            }
+
+            .luxury-new-price {
+                font-size: 2.5rem;
+            }
+
+            .luxury-offer-img {
+                height: 350px;
+            }
+
+            .luxury-countdown {
+                gap: 8px;
+            }
+
+            .luxury-time-box {
+                padding: 15px 10px;
+                min-width: 70px;
+                border-radius: 8px;
+            }
+
+            .lux-time-num {
+                font-size: 2.2rem;
+            }
+
+            .luxury-time-sep {
+                font-size: 2rem;
+                margin-bottom: 15px;
+            }
         }
     </style>
 </head>
@@ -1324,7 +1683,7 @@
     <!-- Navbar -->
     <nav class="navbar" id="navbar">
         <div class="container nav-container">
-            <a href="#" class="logo flex items-center gap-2">
+            <a href="#" class="logo">
                 @if($setting->logo)
                 <img src="{{ asset('storage/' . $setting->logo) }}" alt="{{ $setting->site_name }}" class="logo-img w-auto">
                 @else
@@ -1351,6 +1710,9 @@
         </div>
     </nav>
 
+    <!-- Mobile Menu Overlay -->
+    <div class="nav-overlay" id="nav-overlay"></div>
+
     <!-- Hero Section -->
     <section id="home" class="hero">
         <video class="hero-video" autoplay muted loop playsinline>
@@ -1375,6 +1737,78 @@
         </div>
     </section>
 
+    <!-- Limited Time Offer - Luxury Section -->
+    @if(isset($limitedOffer))
+    <section id="luxury-offer" class="luxury-offer-wrapper">
+        <div class="container">
+            <div class="luxury-offer-layout">
+
+                <!-- جانب الصورة مع التأثيرات -->
+                <div class="luxury-offer-image-side">
+                    <div class="luxury-img-glow"></div>
+                    <img src="{{ $limitedOffer->image ? asset('storage/' . $limitedOffer->image) : 'https://picsum.photos/seed/luxury_dish/600/700' }}" alt="{{ $limitedOffer->name_en }}" class="luxury-offer-img">
+
+                    <!-- شارة العرض النابضة -->
+                    <div class="luxury-offer-badge">
+                        <i class="fas fa-bolt"></i>
+                        <span data-lang="lux_offer_badge">Limited Time</span>
+                    </div>
+                </div>
+
+                <!-- جانب التفاصيل والتايمر -->
+                <div class="luxury-offer-content">
+                    <p class="luxury-eyebrow" data-lang="lux_offer_eyebrow">Don't Miss Out</p>
+
+                    <h2 class="luxury-offer-title"
+                        data-content-en="{{ $limitedOffer->name_en }}"
+                        data-content-ar="{{ $limitedOffer->name_ar }}">
+                        {{ $limitedOffer->name_en }}
+                    </h2>
+
+                    <p class="luxury-offer-desc"
+                        data-content-en="{{ $limitedOffer->description_en }}"
+                        data-content-ar="{{ $limitedOffer->description_ar }}">
+                        {{ $limitedOffer->description_en }}
+                    </p>
+
+                    <!-- الأسعار -->
+                    <div class="luxury-pricing">
+                        <span class="luxury-old-price">${{ $limitedOffer->price }}</span>
+                        <span class="luxury-new-price">${{ $limitedOffer->discount_price }}</span>
+                    </div>
+
+                    <!-- مؤقت العد التنازلي الفاخر -->
+                    <div class="luxury-countdown-head" data-lang="lux_countdown_head">Offer Ends In:</div>
+                    <div class="luxury-countdown" id="luxury-timer" data-expires="{{ $limitedOffer->offer_expires_at }}">
+                        <div class="luxury-time-box">
+                            <span class="lux-time-num" id="lux-days">00</span>
+                            <span class="lux-time-label" data-lang="lux_days">Days</span>
+                        </div>
+                        <div class="luxury-time-sep">:</div>
+                        <div class="luxury-time-box">
+                            <span class="lux-time-num" id="lux-hours">00</span>
+                            <span class="lux-time-label" data-lang="lux_hours">Hours</span>
+                        </div>
+                        <div class="luxury-time-sep">:</div>
+                        <div class="luxury-time-box">
+                            <span class="lux-time-num" id="lux-mins">00</span>
+                            <span class="lux-time-label" data-lang="lux_mins">Mins</span>
+                        </div>
+                        <div class="luxury-time-sep">:</div>
+                        <div class="luxury-time-box">
+                            <span class="lux-time-num" id="lux-secs">00</span>
+                            <span class="lux-time-label" data-lang="lux_secs">Secs</span>
+                        </div>
+                    </div>
+
+                    <a href="#reservation" class="btn btn-fill luxury-offer-btn" data-lang="lux_offer_btn">Reserve Your Spot</a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    @endif
+
     <!-- About Section -->
     <section id="about" class="section-padding">
         <div class="container">
@@ -1397,9 +1831,7 @@
                         @forelse($stats as $index => $item)
                         <div class="stat-item">
                             <h4>{{ $item->number }}</h4>
-
-                            <p
-                                data-lang="stat_exp"
+                            <p data-lang="stat_exp"
                                 data-content-en="{{ $item->title_en }}"
                                 data-content-ar="{{ $item->title_ar }}">
                                 {{ $item->title_en }}
@@ -1414,6 +1846,7 @@
     </section>
 
     <!-- Menu Section -->
+    <!-- Menu Section -->
     <section id="menu" class="section-padding menu-section">
         <div class="container">
             <div class="section-header">
@@ -1422,97 +1855,52 @@
             </div>
 
             <div class="menu-filters">
+                <!-- زر الكل -->
                 <button class="filter-btn active" data-filter="all" data-lang="filter_all">All</button>
-                <button class="filter-btn" data-filter="starters" data-lang="filter_starters">Starters</button>
-                <button class="filter-btn" data-filter="mains" data-lang="filter_mains">Mains</button>
-                <button class="filter-btn" data-filter="desserts" data-lang="filter_desserts">Desserts</button>
-                <button class="filter-btn" data-filter="drinks" data-lang="filter_drinks">Drinks</button>
+
+                <!-- أزرار الأصناف الديناميكية -->
+                @foreach($categories as $category)
+                <button class="filter-btn" data-filter="cat-{{ $category->id }}">
+                    <span data-content-en="{{ $category->name_en }}" data-content-ar="{{ $category->name_ar }}">
+                        {{ $category->name_en }}
+                    </span>
+                </button>
+                @endforeach
             </div>
 
             <div class="menu-grid">
-                <!-- Starters -->
-                <div class="menu-item" data-category="starters">
+                <!-- الأطباق الديناميكية -->
+                @foreach($items as $item)
+                <div class="menu-item" data-category="cat-{{ $item->cat_id }}">
                     <div class="menu-img-container">
-                        <img src="https://picsum.photos/seed/food1/400/300" alt="Dish" class="menu-img">
+                        <img src="{{ $item->image ? asset('storage/' . $item->image) : 'https://picsum.photos/seed/default/400/300' }}" alt="{{ $item->name_en }}" class="menu-img">
                     </div>
                     <div class="menu-details">
                         <div class="dish-header">
-                            <h3 class="dish-name" data-lang="dish1_name">Truffle Arancini</h3>
-                            <span class="dish-price">$24</span>
-                        </div>
-                        <p class="dish-desc" data-lang="dish1_desc">Wild mushroom risotto balls, black truffle aioli, parmesan dust.</p>
-                    </div>
-                </div>
+                            <h3 class="dish-name"
+                                data-content-en="{{ $item->name_en }}"
+                                data-content-ar="{{ $item->name_ar }}">
+                                {{ $item->name_en }}
+                            </h3>
 
-                <!-- Mains -->
-                <div class="menu-item" data-category="mains">
-                    <div class="menu-img-container">
-                        <img src="https://picsum.photos/seed/food2/400/300" alt="Dish" class="menu-img">
-                    </div>
-                    <div class="menu-details">
-                        <div class="dish-header">
-                            <h3 class="dish-name" data-lang="dish2_name">Wagyu Beef Tenderloin</h3>
-                            <span class="dish-price">$85</span>
+                            <span class="dish-price">
+                                @if($item->is_discount && $item->discount_price)
+                                <!-- عرض السعر القديم مشطوب والسعر الجديد -->
+                                <span style="text-decoration: line-through; color: #888; font-size: 0.8em; margin-right: 5px;">${{ $item->price }}</span>
+                                <span style="color: #4ade80;">${{ $item->discount_price }}</span>
+                                @else
+                                ${{ $item->price }}
+                                @endif
+                            </span>
                         </div>
-                        <p class="dish-desc" data-lang="dish2_desc">A5 Japanese Wagyu, garlic confit, roasted root vegetables, red wine reduction.</p>
+                        <p class="dish-desc"
+                            data-content-en="{{ $item->description_en }}"
+                            data-content-ar="{{ $item->description_ar }}">
+                            {{ $item->description_en }}
+                        </p>
                     </div>
                 </div>
-
-                <!-- Desserts -->
-                <div class="menu-item" data-category="desserts">
-                    <div class="menu-img-container">
-                        <img src="https://picsum.photos/seed/food3/400/300" alt="Dish" class="menu-img">
-                    </div>
-                    <div class="menu-details">
-                        <div class="dish-header">
-                            <h3 class="dish-name" data-lang="dish3_name">Golden Sphere</h3>
-                            <span class="dish-price">$22</span>
-                        </div>
-                        <p class="dish-desc" data-lang="dish3_desc">Chocolate sphere, gold leaf, passion fruit core, vanilla bean gelato.</p>
-                    </div>
-                </div>
-
-                <!-- Drinks -->
-                <div class="menu-item" data-category="drinks">
-                    <div class="menu-img-container">
-                        <img src="https://picsum.photos/seed/drink1/400/300" alt="Dish" class="menu-img">
-                    </div>
-                    <div class="menu-details">
-                        <div class="dish-header">
-                            <h3 class="dish-name" data-lang="dish4_name">Smoked Old Fashioned</h3>
-                            <span class="dish-price">$18</span>
-                        </div>
-                        <p class="dish-desc" data-lang="dish4_desc">Bourbon, maple syrup, angostura bitters, hickory smoke infusion.</p>
-                    </div>
-                </div>
-
-                <!-- More Starters -->
-                <div class="menu-item" data-category="starters">
-                    <div class="menu-img-container">
-                        <img src="https://picsum.photos/seed/food5/400/300" alt="Dish" class="menu-img">
-                    </div>
-                    <div class="menu-details">
-                        <div class="dish-header">
-                            <h3 class="dish-name" data-lang="dish5_name">Scallop Crudo</h3>
-                            <span class="dish-price">$28</span>
-                        </div>
-                        <p class="dish-desc" data-lang="dish5_desc">Hokkaido scallops, yuzu pearls, radish, micro cilantro.</p>
-                    </div>
-                </div>
-
-                <!-- More Mains -->
-                <div class="menu-item" data-category="mains">
-                    <div class="menu-img-container">
-                        <img src="https://picsum.photos/seed/food6/400/300" alt="Dish" class="menu-img">
-                    </div>
-                    <div class="menu-details">
-                        <div class="dish-header">
-                            <h3 class="dish-name" data-lang="dish6_name">Pan Seared Scallops</h3>
-                            <span class="dish-price">$45</span>
-                        </div>
-                        <p class="dish-desc" data-lang="dish6_desc">Cauliflower purée, crispy pancetta, caper butter sauce.</p>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </section>
@@ -1531,27 +1919,19 @@
                     <div class="gallery-overlay"><i class="fas fa-search-plus gallery-icon"></i></div>
                 </div>
                 @endforeach
-                
             </div>
         </div>
     </section>
 
     <!-- Testimonials Section -->
-    <!-- Testimonials Section - Modern Luxury Design -->
     <section id="testimonials" class="modern-testimonials">
         <div class="container">
             <div class="testimonial-slider">
 
                 @forelse($testimonials as $item)
                 <div class="testimonial-card {{ $loop->first ? 'active' : '' }}" data-index="{{ $loop->index }}">
-
-                    <!-- أيقونة اقتباس كبيرة في الخلفية للزينة -->
                     <div class="big-quote">“</div>
-
-                    <!-- صورة العميل -->
                     <img src="https://picsum.photos/seed/{{ $item->id ?? 'user' }}/200/200" alt="User" class="user-img">
-
-                    <!-- النجوم -->
                     <div class="t-stars">
                         @for($i = 1; $i <= 5; $i++)
                             @if($i <=$item->rating)
@@ -1561,20 +1941,13 @@
                             @endif
                             @endfor
                     </div>
-
-                    <!-- نص الرسالة -->
-                    <p class="testimonial-text">
-                        {{ $item->message }}
-                    </p>
-
-                    <!-- معلومات العميل -->
+                    <p class="testimonial-text">{{ $item->message }}</p>
                     <div class="user-info">
                         <h5 class="user-name">{{ $item->name }}</h5>
                         @if($item->role)
                         <span class="user-role">{{ $item->role }}</span>
                         @endif
                     </div>
-
                 </div>
                 @empty
                 <div class="text-center text-gray-400 py-10">
@@ -1582,23 +1955,19 @@
                 </div>
                 @endforelse
 
-                <!-- نقاط التنقل -->
                 <div class="slider-dots" id="slider-dots">
                     @foreach($testimonials as $item)
                     <div class="dot {{ $loop->first ? 'active' : '' }}" onclick="setSlide({{ $loop->index }})"></div>
                     @endforeach
                 </div>
-
             </div>
         </div>
     </section>
 
-    <!-- قسم فورم إرسال الرأي -->
+    <!-- Testimonial Form Section -->
     <section class="testimonial-form-section">
         <div class="container">
             <div class="form-layout">
-
-                <!-- الجانب الأيمن: نص ترحيبي -->
                 <div class="form-intro">
                     <h3 data-lang="share_exp_title">شاركنا تجربتك</h3>
                     <p data-lang="share_exp_desc">
@@ -1609,10 +1978,7 @@
                     </div>
                 </div>
 
-                <!-- الجانب الأيسر: الفورم -->
                 <div class="review-form-card">
-
-                    <!-- رسالة النجاح (مخفية في البداية) -->
                     <div id="successMessage" style="display: none; text-align: center; padding: 40px 0;">
                         <i class="fas fa-check-circle" style="font-size: 4rem; color: #4ade80; margin-bottom: 20px;"></i>
                         <h3 style="color: #fff; font-family: 'Cormorant Garamond', serif; font-size: 2rem; margin-bottom: 10px;">شكراً لك!</h3>
@@ -1620,22 +1986,17 @@
                         <button onclick="resetFormView()" style="margin-top: 20px; background: transparent; border: 1px solid #333; color: #fff; padding: 10px 20px; cursor: pointer; border-radius: 4px;">إضافة تقييم آخر</button>
                     </div>
 
-                    <!-- الفورم -->
                     <form id="reviewForm" action="{{ route('testimonials.store') }}" method="POST">
                         @csrf
-
-                        <!-- الاسم -->
                         <div class="input-group">
                             <input type="text" name="name" id="inputName" class="review-input" placeholder="الاسم الكامل" required value="{{ old('name') }}">
                             <span class="error-msg" id="error-name"></span>
                         </div>
 
-                        <!-- المنصب (اختياري) -->
                         <div class="input-group">
                             <input type="text" name="role" class="review-input" placeholder="المنصب (اختياري)" value="{{ old('role') }}">
                         </div>
 
-                        <!-- التقييم بالنجوم -->
                         <div class="input-group" style="text-align: right;">
                             <label style="display:block; margin-bottom:10px; color:#888; font-size:0.9rem;">قيم تجربتك:</label>
                             <div class="star-rating">
@@ -1648,86 +2009,20 @@
                             <span class="error-msg" id="error-rating"></span>
                         </div>
 
-                        <!-- الرسالة -->
                         <div class="input-group">
                             <textarea name="message" id="inputMessage" class="review-input" rows="4" placeholder="اكتب تجربتك هنا..." required>{{ old('message') }}</textarea>
                             <span class="error-msg" id="error-message"></span>
                         </div>
 
-                        <!-- زر الإرسال -->
                         <button type="submit" id="submitBtn" class="btn-submit-review">
                             إرسال التقييم <i class="fas fa-paper-plane" style="margin-right: 10px;"></i>
                         </button>
                     </form>
                 </div>
-
             </div>
         </div>
     </section>
 
-    <script>
-        document.getElementById('reviewForm').addEventListener('submit', function(e) {
-            e.preventDefault(); // منع عمل ريفريش للصفحة
-
-            const form = this;
-            const submitBtn = document.getElementById('submitBtn');
-            const formData = new FormData(form);
-
-            // تغيير نص الزر أثناء التحميل
-            const originalBtnContent = submitBtn.innerHTML;
-            submitBtn.innerHTML = 'جاري الإرسال...';
-            submitBtn.disabled = true;
-
-            // تنظيف رسائل الخطأ السابقة
-            document.querySelectorAll('.error-msg').forEach(el => el.textContent = '');
-
-            fetch(form.action, {
-                    method: 'POST',
-                    body: formData,
-                    headers: {
-                        'X-Requested-With': 'XMLHttpRequest',
-                        'Accept': 'application/json'
-                    }
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        // إخفاء الفورم وإظهار رسالة النجاح
-                        form.style.display = 'none';
-                        document.getElementById('successMessage').style.display = 'block';
-                        form.reset(); // تفريغ الحقول
-                    } else {
-                        // في حالة وجود أخطاء (Validation Errors)
-                        if (data.errors) {
-                            // عرض الأخطاء أسفل الحقول
-                            if (data.errors.name) document.getElementById('error-name').textContent = data.errors.name[0];
-                            if (data.errors.rating) document.getElementById('error-rating').textContent = data.errors.rating[0];
-                            if (data.errors.message) document.getElementById('error-message').textContent = data.errors.message[0];
-
-                            // رسالة تنبيه عامة
-                            alert('يرجى تصحيح الأخطاء والمحاولة مرة أخرى');
-                        } else {
-                            alert('حدث خطأ غير متوقع');
-                        }
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('حدث خطأ في الاتصال بالخادم');
-                })
-                .finally(() => {
-                    // إعادة الزر لحالته الأصلية
-                    submitBtn.innerHTML = originalBtnContent;
-                    submitBtn.disabled = false;
-                });
-        });
-
-        // دالة لإعادة الفورم للظهور مرة أخرى
-        function resetFormView() {
-            document.getElementById('successMessage').style.display = 'none';
-            document.getElementById('reviewForm').style.display = 'block';
-        }
-    </script>
     <!-- Reservation Section -->
     <section id="reservation" class="section-padding reservation-section">
         <div class="container">
@@ -1738,7 +2033,7 @@
 
             <form action="{{ route('reservations.store') }}" method="POST" class="reservation-form" id="bookingForm">
                 @if(session('status'))
-                <div style=" top: 80px; right: 20px; background: #D4AF37; color: #000; padding: 15px 25px; border-radius: 4px; z-index: 3000; box-shadow: 0 5px 15px rgba(0,0,0,0.3);">
+                <div style=" margin-bottom: 20px; background: #D4AF37; color: #000; padding: 15px 25px; border-radius: 4px; box-shadow: 0 5px 15px rgba(0,0,0,0.3);">
                     {{ session('status') }}
                 </div>
                 @endif
@@ -1776,7 +2071,7 @@
                             <option value="5">5+ People</option>
                         </select>
                     </div>
-                    <div class="form-group" style="display: flex; align-items: center;">
+                    <div class="form-group" style="display: flex; align-items: flex-end;">
                         <button type="submit" class="btn btn-fill" style="width: 100%;" data-lang="btn_confirm">Confirm Booking</button>
                     </div>
                 </div>
@@ -1812,7 +2107,6 @@
                     <div class="contact-icon"><i class="fas fa-envelope"></i></div>
                     <div class="contact-details">
                         <h5 data-lang="contact_email_title">Email</h5>
-
                         <a href="mailto:{{ $setting->email }}" class="hover:text-[#E60914] transition">
                             <p>{{ $setting->email }}</p>
                         </a>
@@ -1852,7 +2146,8 @@
             </div>
         </div>
     </section>
-    <!-- FAQ Section - Modern Aesthetic -->
+
+    <!-- FAQ Section -->
     <section id="faq" class="section-padding faq-section-wrapper">
         <div class="container">
             <div class="text-center mb-16 faq-header">
@@ -1863,9 +2158,7 @@
 
             <div class="max-w-4xl mx-auto">
                 @forelse($faqs as $faq)
-                <!-- سؤال واحد -->
                 <div class="faq-card" onclick="toggleFaq(this)">
-                    <!-- زر السؤال -->
                     <button class="faq-btn">
                         <span class="faq-question data-content-wrapper"
                             data-content-en="{{ $faq->question_en }}"
@@ -1877,7 +2170,6 @@
                         </div>
                     </button>
 
-                    <!-- الإجابة -->
                     <div class="faq-body">
                         <div class="faq-content data-content-wrapper"
                             data-content-en="{{ $faq->answer_en }}"
@@ -1895,19 +2187,31 @@
         </div>
     </section>
 
+    <!-- Luxury Toast Notification -->
+    <div id="luxury-toast" class="luxury-toast">
+        <div class="lux-toast-icon">
+            <i class="fas fa-check-circle"></i>
+        </div>
+        <div class="lux-toast-content">
+            <h4 class="lux-toast-title">Success</h4>
+            <p class="lux-toast-message">Your action was completed successfully.</p>
+        </div>
+        <button class="lux-toast-close" onclick="closeLuxuryToast()">&times;</button>
+        <div class="lux-toast-progress"></div>
+    </div>
     <!-- Footer -->
     <footer>
         <div class="container">
-            <a href="#" class="footer-logo flex items-center justify-center gap-2">
+            <a href="#" class="footer-logo">
                 @if($setting->logo)
                 <img src="{{ asset('storage/' . $setting->logo) }}" class="logo-img w-auto">
                 @endif
                 {{ $setting->site_name ?? 'AURUM' }}<span>.</span>
             </a>
             <p class="copyright">&copy; 2023 {{ $setting->site_name ?? 'Aurum Restaurant' }}. All Rights Reserved.</p>
-            <div style="margin-top: 20px;">
-                <input type="email" placeholder="Subscribe to our newsletter" style="padding: 10px; border: 1px solid #333; background: #000; color: #fff;">
-                <button class="btn" style="padding: 10px 20px; font-size: 0.7rem;">GO</button>
+            <div class="newsletter-form">
+                <input type="email" placeholder="Subscribe to our newsletter">
+                <button class="btn">GO</button>
             </div>
         </div>
     </footer>
@@ -1935,8 +2239,6 @@
                 about_desc: "Founded in 2010, Aurum represents the pinnacle of culinary excellence. Our philosophy is simple: source the finest ingredients, treat them with respect, and transform them into unforgettable memories. Under the guidance of Executive Chef Alessandro Marco, we invite you on a journey through flavor, texture, and emotion.",
                 about_btn: "Discover More",
                 stat_exp: "Years Experience",
-                stat_happy: "Happy Customers",
-                stat_dishes: "Signature Dishes",
                 menu_title: "Culinary Masterpieces",
                 menu_subtitle: "Seasonally Inspired | Globally Sourced",
                 filter_all: "All",
@@ -1958,19 +2260,22 @@
                 dish6_desc: "Cauliflower purée, crispy pancetta, caper butter sauce.",
                 gallery_title: "Visual Feast",
                 gallery_subtitle: "Atmosphere & Plating",
-                review1_text: "\"An absolutely transcendent experience. The tasting menu was a journey through flavors I didn't know existed. Impeccable service.\"",
-                review2_text: "\"The ambiance is purely cinematic. Dark, moody, and luxurious. The wagyu beef was cooked to perfection. Highly recommended.\"",
-                review3_text: "\"A hidden gem in the city. The wine pairing is genius. A bit pricey, but worth every penny for a special occasion.\"",
                 book_title: "Reserve Your Table",
                 book_subtitle: "Secure your evening of indulgence",
                 btn_confirm: "Confirm Booking",
                 contact_title: "Contact Us",
                 contact_addr_title: "Address",
-                contact_addr_val: "123 Luxury Avenue, Golden District, Dubai, UAE",
                 contact_phone_title: "Phone",
                 contact_email_title: "Email",
                 contact_hours_title: "Opening Hours",
-                contact_hours_val: "Daily: 6:00 PM - 11:30 PM"
+                lux_offer_badge: "Limited Time",
+                lux_offer_eyebrow: "Don't Miss Out",
+                lux_countdown_head: "Offer Ends In:",
+                lux_days: "Days",
+                lux_hours: "Hours",
+                lux_mins: "Mins",
+                lux_secs: "Secs",
+                lux_offer_btn: "Reserve Your Spot"
             },
             ar: {
                 nav_home: "الرئيسية",
@@ -1987,8 +2292,6 @@
                 about_desc: "تأسس أوروم في عام 2010، ويمثل قمة التميز الطهوي. فلسفتنا بسيطة: الحصول على أجود المكونات، ومعاملتها باحترام، وتحويلها إلى ذكريات لا تُنسى. تحت إشراف الشيف التنفيذي أليساندرو ماركو، ندعوك في رحلة عبر النكهة والملمس والمشاعر.",
                 about_btn: "اكتشف المزيد",
                 stat_exp: "سنوات خبرة",
-                stat_happy: "عملاء سعداء",
-                stat_dishes: "أطباق مميزة",
                 menu_title: "روائع الطهي",
                 menu_subtitle: "إلهام موسمي | مصادر عالمية",
                 filter_all: "الكل",
@@ -2010,25 +2313,26 @@
                 dish6_desc: "هريس القرنبيط، بانشيتا مقرمشة، صلصة الكابر.",
                 gallery_title: "وليمة بصرية",
                 gallery_subtitle: "الأجواء والتقديم",
-                review1_text: "\"تجربة متسامية تمامًا. كانت قائمة التذوق رحلة عبر نكهات لم أكن أعرف بوجودها. خدمة لا تشوبها شائبة.\"",
-                review2_text: "\"الأجواء سينمائية بحتة. مظلمة، كئيبة، وفاخرة. لحم الواجي مطهو بدقة. أوصي بشدة به.\"",
-                review3_text: "\"جوهرة مخفية في المدينة. اقتران النبيذ عبقري. باهظ الثمن قليلاً، ولكنه يستحق كل قرش لمناسبة خاصة.\"",
                 book_title: "احجز طاولتك",
                 book_subtitle: "تأمين مساء من الترف",
                 btn_confirm: "تأكيد الحجز",
                 contact_title: "اتصل بنا",
                 contact_addr_title: "العنوان",
-                contact_addr_val: "123 شارع الفخامة، حي الذهب، دبي، الإمارات",
                 contact_phone_title: "الهاتف",
                 contact_email_title: "البريد الإلكتروني",
                 contact_hours_title: "ساعات العمل",
-                contact_hours_val: "يومياً: 6:00 مساءً - 11:30 مساءً"
+                lux_offer_badge: "عرض محدود",
+                lux_offer_eyebrow: "لا تفوت الفرصة",
+                lux_countdown_head: "ينتهي العرض خلال:",
+                lux_days: "أيام",
+                lux_hours: "ساعات",
+                lux_mins: "دقائق",
+                lux_secs: "ثواني",
+                lux_offer_btn: "احجز مكانك الآن"
             }
         };
 
         // --- Language Switching Logic with LocalStorage Persistence ---
-
-        // Check local storage for saved language, default to 'en' if not found
         const savedLang = localStorage.getItem('aurumLang') || 'en';
         let currentLanguage = savedLang;
 
@@ -2037,23 +2341,17 @@
 
         langSwitcher.addEventListener('click', () => {
             currentLanguage = currentLanguage === 'en' ? 'ar' : 'en';
-
-            // SAVE THE NEW LANGUAGE TO LOCAL STORAGE
             localStorage.setItem('aurumLang', currentLanguage);
-
             updateLanguage();
         });
 
         function updateLanguage() {
-            // 1. تحديث اتجاه الصفحة
             const html = document.documentElement;
             html.setAttribute('dir', currentLanguage === 'ar' ? 'rtl' : 'ltr');
             html.setAttribute('lang', currentLanguage);
 
-            // 2. تحديث زر اللغة
             currentLangDisplay.textContent = currentLanguage === 'en' ? 'EN' : 'عربي';
 
-            // 3. تحديث النصوص الثابتة (الكود الموجود عندك حالياً)
             document.querySelectorAll('[data-lang]').forEach(el => {
                 const key = el.getAttribute('data-lang');
                 if (translations[currentLanguage][key]) {
@@ -2061,15 +2359,11 @@
                 }
             });
 
-            // 4. --- الكود المفقود (تحديث النصوص الديناميكية من قاعدة البيانات) ---
-            // هذا الجزء يقوم بالبحث عن العناصر التي تحمل البيانات من الداتا بيس
             document.querySelectorAll('[data-content-en]').forEach(el => {
                 const text = currentLanguage === 'ar' ?
-                    el.getAttribute('data-content-ar') // إذا عربي خذ القيمة العربية
-                    :
-                    el.getAttribute('data-content-en'); // إذا إنجليزي خذ القيمة الإنجليزية
+                    el.getAttribute('data-content-ar') :
+                    el.getAttribute('data-content-en');
 
-                // إذا وجد نص، قم بتحديثه
                 if (text && text.trim() !== "") {
                     el.textContent = text;
                 }
@@ -2089,34 +2383,47 @@
             }
         });
 
-        // --- Mobile Menu ---
+        // --- Mobile Menu & Overlay Logic ---
         const mobileToggle = document.getElementById('mobile-toggle');
         const navLinks = document.getElementById('nav-links');
+        const navOverlay = document.getElementById('nav-overlay');
+        const menuIcon = mobileToggle.querySelector('i');
+
+        function openMenu() {
+            navLinks.classList.add('active');
+            navOverlay.classList.add('active');
+            menuIcon.classList.remove('fa-bars');
+            menuIcon.classList.add('fa-times');
+            document.body.style.overflow = 'hidden'; // Prevent background scroll
+        }
+
+        function closeMenu() {
+            navLinks.classList.remove('active');
+            navOverlay.classList.remove('active');
+            menuIcon.classList.remove('fa-times');
+            menuIcon.classList.add('fa-bars');
+            document.body.style.overflow = ''; // Restore scroll
+        }
 
         mobileToggle.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-            const icon = mobileToggle.querySelector('i');
             if (navLinks.classList.contains('active')) {
-                icon.classList.remove('fa-bars');
-                icon.classList.add('fa-times');
+                closeMenu();
             } else {
-                icon.classList.remove('fa-times');
-                icon.classList.add('fa-bars');
+                openMenu();
             }
         });
 
+        // Close menu when clicking on overlay
+        navOverlay.addEventListener('click', closeMenu);
+
+        // Close menu when clicking on links
         document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', () => {
-                navLinks.classList.remove('active');
-                mobileToggle.querySelector('i').classList.remove('fa-times');
-                mobileToggle.querySelector('i').classList.add('fa-bars');
-            });
+            link.addEventListener('click', closeMenu);
         });
 
         // --- GSAP Animations ---
         gsap.registerPlugin(ScrollTrigger);
 
-        // Hero Animations
         const heroTl = gsap.timeline();
         heroTl.to(".hero-subtitle", {
                 opacity: 1,
@@ -2135,7 +2442,6 @@
                 duration: 1
             }, "-=0.5");
 
-        // About Section Fade In
         gsap.from(".about-text", {
             scrollTrigger: {
                 trigger: "#about",
@@ -2146,7 +2452,6 @@
             duration: 1
         });
 
-        // Menu Items Stagger
         gsap.from(".menu-item", {
             scrollTrigger: {
                 trigger: "#menu",
@@ -2164,23 +2469,27 @@
 
         filterBtns.forEach(btn => {
             btn.addEventListener('click', () => {
-                // Remove active class from all buttons
                 filterBtns.forEach(b => b.classList.remove('active'));
-                // Add active to clicked
                 btn.classList.add('active');
 
                 const filterValue = btn.getAttribute('data-filter');
 
                 menuItems.forEach(item => {
-                    item.classList.remove('show'); // Reset animation class
+                    item.classList.remove('show');
 
                     if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
                         item.style.display = 'block';
-                        // Small timeout to allow display:block to apply before opacity animation
                         setTimeout(() => item.classList.add('show'), 10);
                     } else {
                         item.style.display = 'none';
                     }
+                });
+            });
+
+            window.addEventListener('DOMContentLoaded', () => {
+                menuItems.forEach(item => {
+                    item.style.display = 'block';
+                    setTimeout(() => item.classList.add('show'), 100); // تأخير بسيط عشان الـ Animation تشتغل
                 });
             });
         });
@@ -2191,39 +2500,91 @@
         const dots = document.querySelectorAll('.dot');
 
         function setSlide(index) {
-            // Remove active classes
             slides.forEach(slide => slide.classList.remove('active'));
             dots.forEach(dot => dot.classList.remove('active'));
 
-            // Set new active
             currentSlide = index;
             slides[currentSlide].classList.add('active');
             dots[currentSlide].classList.add('active');
         }
 
-        // Auto slide
         setInterval(() => {
-            let next = (currentSlide + 1) % slides.length;
-            setSlide(next);
+            if (slides.length > 0) {
+                let next = (currentSlide + 1) % slides.length;
+                setSlide(next);
+            }
         }, 5000);
 
         // --- Form Submission ---
-        const form = document.getElementById('bookingForm');
-        const toast = document.getElementById('toast');
-
-        form.addEventListener('submit', async function(e) {
+        document.getElementById('reviewForm').addEventListener('submit', function(e) {
             e.preventDefault();
 
-            const btn = form.querySelector('button');
+            const form = this;
+            const submitBtn = document.getElementById('submitBtn');
+            const formData = new FormData(form);
+
+            const originalBtnContent = submitBtn.innerHTML;
+            submitBtn.innerHTML = 'جاري الإرسال...';
+            submitBtn.disabled = true;
+
+            document.querySelectorAll('.error-msg').forEach(el => el.textContent = '');
+
+            fetch(form.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest',
+                        'Accept': 'application/json'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        form.style.display = 'none';
+                        document.getElementById('successMessage').style.display = 'block';
+                        form.reset();
+                    } else {
+                        if (data.errors) {
+                            if (data.errors.name) document.getElementById('error-name').textContent = data.errors.name[0];
+                            if (data.errors.rating) document.getElementById('error-rating').textContent = data.errors.rating[0];
+                            if (data.errors.message) document.getElementById('error-message').textContent = data.errors.message[0];
+                        } else {
+                            alert('حدث خطأ غير متوقع');
+                        }
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('حدث خطأ في الاتصال بالخادم');
+                })
+                .finally(() => {
+                    submitBtn.innerHTML = originalBtnContent;
+                    submitBtn.disabled = false;
+                });
+        });
+
+        function resetFormView() {
+            document.getElementById('successMessage').style.display = 'none';
+            document.getElementById('reviewForm').style.display = 'block';
+        }
+
+        // Reservation Form
+        const bookingForm = document.getElementById('bookingForm');
+        const toast = document.getElementById('toast');
+
+        bookingForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const btn = bookingForm.querySelector('button[type="submit"]');
             const originalText = btn.innerText;
 
             btn.innerText = "Processing...";
             btn.disabled = true;
 
             try {
-                const formData = new FormData(form);
+                const formData = new FormData(bookingForm);
 
-                const response = await fetch("{{ route('reservations.store') }}", {
+                const response = await fetch(bookingForm.action, {
                     method: "POST",
                     body: formData
                 });
@@ -2231,8 +2592,8 @@
                 const data = await response.json();
 
                 if (data.success) {
-                    form.reset();
-                    showToast(data.message);
+                    bookingForm.reset();
+                    showToast(data.message || "Table Booked Successfully!");
                 } else {
                     showToast("Something went wrong");
                 }
@@ -2256,13 +2617,10 @@
             }, 3000);
         }
 
-
         function toggleFaq(element) {
-            // البحث عن العنصر النشط حالياً (غير العنصر الذي تم ضغطه)
             const allCards = document.querySelectorAll('.faq-card');
             const isActive = element.classList.contains('active');
 
-            // إغلاق جميع العناصر الأخرى لتنظيف الواجهة (اختياري)
             allCards.forEach(card => {
                 if (card !== element && card.classList.contains('active')) {
                     card.classList.remove('active');
@@ -2270,17 +2628,57 @@
                 }
             });
 
-            // تبديل حالة العنصر الحالي
             if (isActive) {
                 element.classList.remove('active');
                 element.querySelector('.faq-body').style.maxHeight = null;
             } else {
                 element.classList.add('active');
                 const body = element.querySelector('.faq-body');
-                // حساب الارتفاع الحقيقي للمحتوى
                 body.style.maxHeight = body.scrollHeight + "px";
             }
         }
+
+        // --- Luxury Countdown Timer ---
+        function startLuxuryCountdown() {
+            const timerElement = document.getElementById('luxury-timer');
+            if (!timerElement) return;
+
+            const expiresAt = timerElement.getAttribute('data-expires');
+            if (!expiresAt) return;
+
+            const targetDate = new Date(expiresAt).getTime();
+
+            if (isNaN(targetDate)) return;
+
+            const interval = setInterval(() => {
+                const now = new Date().getTime();
+                const distance = targetDate - now;
+
+                if (distance < 0) {
+                    clearInterval(interval);
+                    document.getElementById('lux-days').innerText = "00";
+                    document.getElementById('lux-hours').innerText = "00";
+                    document.getElementById('lux-mins').innerText = "00";
+                    document.getElementById('lux-secs').innerText = "00";
+                    // يمكنك إخفاء السيكشن بالكامل إذا انتهى
+                    // document.getElementById('luxury-offer').style.display = 'none';
+                    return;
+                }
+
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                document.getElementById('lux-days').innerText = days < 10 ? "0" + days : days;
+                document.getElementById('lux-hours').innerText = hours < 10 ? "0" + hours : hours;
+                document.getElementById('lux-mins').innerText = minutes < 10 ? "0" + minutes : minutes;
+                document.getElementById('lux-secs').innerText = seconds < 10 ? "0" + seconds : seconds;
+            }, 1000);
+        }
+
+
+        startLuxuryCountdown();
     </script>
 </body>
 

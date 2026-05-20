@@ -7,7 +7,6 @@
         <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-[#111] border border-[#1a1a1a] rounded-2xl overflow-hidden shadow-2xl p-8">
 
-                <!-- ملاحظة: تم تغيير الـ action ليشير إلى رابط التحديث وإضافة PUT -->
                 <form action="{{ route('products.update', $product->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
@@ -22,7 +21,6 @@
                         <!-- الاسم العربي -->
                         <div>
                             <label class="block text-gray-400 text-sm mb-2">الاسم (عربي)</label>
-                            <!-- القيمة تأتي من قاعدة البيانات -->
                             <input type="text" name="name_ar" value="{{ old('name_ar', $product->name_ar) }}" class="w-full bg-[#0a0a0a] border border-[#1a1a1a] rounded-lg px-4 py-3 text-white focus:border-[#E60914]" required>
                         </div>
                         <!-- الاسم الإنجليزي -->
@@ -38,7 +36,6 @@
                         <select name="cat_id" class="w-full bg-[#0a0a0a] border border-[#1a1a1a] rounded-lg px-4 py-3 text-white focus:border-[#E60914]" required>
                             <option value="">اختر التصنيف...</option>
                             @foreach($categories as $cat)
-                            <!-- التحقق: هل هذا هو التصنيف الحالي للمنتج؟ -->
                             <option value="{{ $cat->id }}" {{ $product->cat_id == $cat->id ? 'selected' : '' }}>
                                 {{ $cat->name_ar }}
                             </option>
@@ -58,8 +55,8 @@
                         </div>
                     </div>
 
-                    <!-- الأسعار والخصم -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
+                    <!-- الأسعار والخصم وتاريخ الانتهاء -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-4">
                         <div>
                             <label class="block text-gray-400 text-sm mb-2">السعر الأساسي ($)</label>
                             <input type="number" step="0.01" name="price" value="{{ old('price', $product->price) }}" class="w-full bg-[#0a0a0a] border border-[#1a1a1a] rounded-lg px-4 py-3 text-white focus:border-[#E60914]" required>
@@ -67,11 +64,18 @@
 
                         <div>
                             <div class="flex items-center mb-2">
-                                <!-- التحقق: هل المنتج عليه خصم حالياً؟ -->
                                 <input type="checkbox" name="is_discount" id="is_discount" {{ $product->is_discount ? 'checked' : '' }} class="w-4 h-4 mr-2">
                                 <label for="is_discount" class="text-gray-400 text-sm">يوجد خصم؟</label>
                             </div>
                             <input type="number" step="0.01" name="discount_price" id="discount_price" value="{{ old('discount_price', $product->discount_price) }}" class="w-full bg-[#0a0a0a] border border-[#1a1a1a] rounded-lg px-4 py-3 text-white focus:border-[#E60914] placeholder-opacity-50" placeholder="سعر الخصم">
+                        </div>
+
+                        <!-- حقل التايمر الجديد -->
+                        <div>
+                            <label class="block text-gray-400 text-sm mb-2">تاريخ انتهاء العرض (التايمر)</label>
+                            <input type="datetime-local" name="offer_expires_at" id="offer_expires_at"
+                                value="{{ old('offer_expires_at', $product->offer_expires_at ? \Carbon\Carbon::parse($product->offer_expires_at)->format('Y-m-d\TH:i') : '') }}"
+                                class="w-full bg-[#0a0a0a] border border-[#1a1a1a] rounded-lg px-4 py-3 text-white focus:border-[#E60914]">
                         </div>
                     </div>
 
@@ -79,7 +83,6 @@
                     <div class="mb-4">
                         <label class="block text-gray-400 text-sm mb-2">صورة المنتج</label>
 
-                        <!-- عرض الصورة الحالية -->
                         @if($product->image)
                         <div class="mb-3 flex items-center gap-4 bg-[#0a0a0a] p-2 rounded border border-[#1a1a1a]">
                             <img src="{{ $product->image_url }}" class="w-20 h-20 object-cover rounded border border-[#333]">
@@ -95,7 +98,6 @@
                             <input type="file" name="image" class="hidden" accept="image/*" onchange="previewImage(event)">
                         </label>
 
-                        <!-- معاينة الصورة الجديدة -->
                         <div id="imagePreviewContainer" class="mt-4 hidden">
                             <p class="text-xs text-gray-500 mb-2">معاينة الصورة الجديدة:</p>
                             <img id="imagePreview" src="#" alt="Preview" class="w-32 h-32 object-cover rounded-lg border border-[#333]">
@@ -121,19 +123,28 @@
         document.addEventListener('DOMContentLoaded', function() {
             const discountCheck = document.getElementById('is_discount');
             const discountInput = document.getElementById('discount_price');
+            const timerInput = document.getElementById('offer_expires_at'); // جلب حقل التايمر
 
             function toggleDiscountState() {
                 if (discountCheck.checked) {
                     discountInput.disabled = false;
                     discountInput.classList.remove('opacity-50', 'cursor-not-allowed');
+
+                    timerInput.disabled = false;
+                    timerInput.classList.remove('opacity-50', 'cursor-not-allowed');
                 } else {
                     discountInput.disabled = true;
                     discountInput.classList.add('opacity-50', 'cursor-not-allowed');
+
+                    timerInput.disabled = true;
+                    timerInput.classList.add('opacity-50', 'cursor-not-allowed');
                 }
             }
 
+            // تشغيل الدالة عند تحميل الصفحة لضبط الحالة الأولية
             toggleDiscountState();
 
+            // الاستماع لتغييرات الـ Checkbox
             discountCheck.addEventListener('change', toggleDiscountState);
         });
 

@@ -32,13 +32,13 @@ class ProductController extends Controller
             'description_en' => 'required',
             'price' => 'required|numeric',
             'discount_price' => 'nullable|numeric|lt:price',
+            'offer_expires_at' => 'nullable|date|after:today',
             'image' => 'nullable|image|max:2048',
         ]);
 
         $data = $request->except(['image', 'is_discount', 'is_available']);
         $data['is_discount'] = $request->has('is_discount');
         $data['is_available'] = $request->has('is_available');
-
 
         if ($request->hasFile('image')) {
             $data['image'] = $request->file('image')->store('products', 'public');
@@ -68,6 +68,7 @@ class ProductController extends Controller
             'description_en' => 'required',
             'price' => 'required|numeric',
             'discount_price' => 'nullable|numeric|lt:price',
+            'offer_expires_at' => 'nullable|date|after:today',
             'image' => 'nullable|image|max:2048',
         ]);
 

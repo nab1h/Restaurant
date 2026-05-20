@@ -26,6 +26,8 @@
                                 <th class="p-4 text-gray-500 text-sm">الاسم</th>
                                 <th class="p-4 text-gray-500 text-sm">التصنيف</th>
                                 <th class="p-4 text-gray-500 text-sm">السعر</th>
+                                <!-- عمود التايمر الجديد -->
+                                <th class="p-4 text-gray-500 text-sm text-center">مدة العرض</th>
                                 <th class="p-4 text-gray-500 text-sm">الحالة</th>
                                 <th class="p-4 text-gray-500 text-sm text-center">الإجراءات</th>
                             </tr>
@@ -49,6 +51,31 @@
                                     <span class="text-white font-bold">{{ $item->price }} $</span>
                                     @endif
                                 </td>
+
+                                <!-- خلية التايمر -->
+                                <td class="p-4 text-center whitespace-nowrap">
+                                    @if($item->is_discount && $item->offer_expires_at)
+                                    @if(now()->gt($item->offer_expires_at))
+                                    <span class="text-red-500 text-xs bg-red-500/10 px-2 py-1 rounded border border-red-500/20">
+                                        <i class="fas fa-times-circle ml-1"></i> منتهي
+                                    </span>
+                                    @else
+                                    <div class="admin-countdown inline-flex items-center gap-1 bg-[#0a0a0a] border border-[#333] rounded-md px-3 py-2 text-xs font-mono"
+                                        data-expires="{{ $item->offer_expires_at }}" id="admin-timer-{{ $item->id }}">
+                                        <span class="days text-white">00</span><span class="text-gray-500">ي</span>
+                                        <span class="text-gray-600">:</span>
+                                        <span class="hours text-white">00</span><span class="text-gray-500">س</span>
+                                        <span class="text-gray-600">:</span>
+                                        <span class="minutes text-white">00</span><span class="text-gray-500">د</span>
+                                        <span class="text-gray-600">:</span>
+                                        <span class="seconds text-[#D4AF37]">00</span><span class="text-gray-500">ث</span>
+                                    </div>
+                                    @endif
+                                    @else
+                                    <span class="text-gray-600 text-xs">-</span>
+                                    @endif
+                                </td>
+
                                 <td class="p-4 text-center">
                                     @if($item->is_available)
                                     <span class="text-green-500 text-xs bg-green-500/10 px-2 py-1 rounded border border-green-500/20">متاح</span>
@@ -73,7 +100,7 @@
                             </tr>
                             @empty
                             <tr>
-                                <td colspan="6" class="p-8 text-center text-gray-500">لا توجد منتجات</td>
+                                <td colspan="7" class="p-8 text-center text-gray-500">لا توجد منتجات</td>
                             </tr>
                             @endforelse
                         </tbody>
@@ -82,4 +109,38 @@
             </div>
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const timers = document.querySelectorAll('.admin-countdown');
+
+            if (timers.length === 0) return;
+
+            function updateAdminTimers() {
+                timers.forEach(timer => {
+                    const targetDate = new Date(timer.getAttribute('data-expires')).getTime();
+                    const now = new Date().getTime();
+                    const distance = targetDate - now;
+
+                    if (distance < 0) {
+                        timer.innerHTML = '<span class="text-red-500 text-xs">منتهي</span>';
+                        return;
+                    }
+
+                    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                    timer.querySelector('.days').innerText = days < 10 ? '0' + days : days;
+                    timer.querySelector('.hours').innerText = hours < 10 ? '0' + hours : hours;
+                    timer.querySelector('.minutes').innerText = minutes < 10 ? '0' + minutes : minutes;
+                    timer.querySelector('.seconds').innerText = seconds < 10 ? '0' + seconds : seconds;
+                });
+            }
+
+            updateAdminTimers();
+            setInterval(updateAdminTimers, 1000);
+        });
+    </script>
 </x-app-layout>

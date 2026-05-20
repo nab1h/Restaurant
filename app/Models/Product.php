@@ -19,6 +19,7 @@ class Product extends Model
         'is_discount',
         'discount_price',
         'is_available',
+        'offer_expires_at',
         'image'
     ];
 
@@ -38,4 +39,10 @@ class Product extends Model
     {
         return $this->image ? asset('storage/' . $this->image) : 'https://via.placeholder.com/150';
     }
+
+    protected $casts = [
+        'offer_expires_at' => 'datetime',
+        'is_discount' => 'boolean',
+        'is_available' => 'boolean',
+    ];
 }

@@ -8,6 +8,8 @@ use App\Models\Faq;
 use App\Models\Media;
 use App\Models\Statistic;
 use App\Models\Testimonial;
+use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -25,6 +27,13 @@ class HomeController extends Controller
             ->latest()
             ->get();
 
-        return view('welcome',compact('setting', 'stats', 'content', 'faqs',  'heroVideo', 'heroImage', 'galleryImages', 'testimonials'));
+        $categories = Category::where('is_active', 1)->get();
+        $items = Product::where('is_available', 1)->get();
+        $limitedOffer = Product::where('is_discount', 1)
+            ->where('is_available', 1)
+            ->where('offer_expires_at', '>', now())
+            ->first();
+
+        return view('welcome',compact('limitedOffer','categories', 'items','setting', 'stats', 'content', 'faqs',  'heroVideo', 'heroImage', 'galleryImages', 'testimonials'));
     }
 }

@@ -19,7 +19,6 @@
                         <!-- الاسم العربي -->
                         <div>
                             <label class="block text-gray-400 text-sm mb-2">الاسم (عربي)</label>
-                            <!-- استخدام old() لاسترجاع القيمة -->
                             <input type="text" name="name_ar" value="{{ old('name_ar') }}" class="w-full bg-[#0a0a0a] border border-[#1a1a1a] rounded-lg px-4 py-3 text-white focus:border-[#E60914]" required>
                         </div>
                         <!-- الاسم الإنجليزي -->
@@ -35,7 +34,6 @@
                         <select name="cat_id" class="w-full bg-[#0a0a0a] border border-[#1a1a1a] rounded-lg px-4 py-3 text-white focus:border-[#E60914]" required>
                             <option value="">اختر التصنيف...</option>
                             @foreach($categories as $cat)
-                            <!-- مقارنة old() مع id التصنيف لتحديد الاختيار السابق -->
                             <option value="{{ $cat->id }}" {{ old('cat_id') == $cat->id ? 'selected' : '' }}>
                                 {{ $cat->name_ar }}
                             </option>
@@ -47,7 +45,6 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
                         <div>
                             <label class="block text-gray-400 text-sm mb-2">الوصف (عربي)</label>
-                            <!-- old() بين وسم الفتح والإغلاق للـ textarea -->
                             <textarea name="description_ar" rows="3" class="w-full bg-[#0a0a0a] border border-[#1a1a1a] rounded-lg px-4 py-3 text-white focus:border-[#E60914]" required>{{ old('description_ar') }}</textarea>
                         </div>
                         <div>
@@ -56,8 +53,8 @@
                         </div>
                     </div>
 
-                    <!-- الأسعار والخصم -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
+                    <!-- الأسعار والخصم وتاريخ الانتهاء -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-4">
                         <div>
                             <label class="block text-gray-400 text-sm mb-2">السعر الأساسي ($)</label>
                             <input type="number" step="0.01" name="price" value="{{ old('price') }}" class="w-full bg-[#0a0a0a] border border-[#1a1a1a] rounded-lg px-4 py-3 text-white focus:border-[#E60914]" required>
@@ -65,11 +62,18 @@
 
                         <div>
                             <div class="flex items-center mb-2">
-                                <!-- التحقق من القيمة القديمة لتحديد الحالة -->
                                 <input type="checkbox" name="is_discount" id="is_discount" class="w-4 h-4 mr-2" {{ old('is_discount') ? 'checked' : '' }}>
                                 <label for="is_discount" class="text-gray-400 text-sm">يوجد خصم؟</label>
                             </div>
-                            <input type="number" step="0.01" name="discount_price" id="discount_price" value="{{ old('discount_price') }}" class="w-full bg-[#0a0a0a] border border-[#1a1a1a] rounded-lg px-4 py-3 text-white focus:border-[#E60914] opacity-50" placeholder="سعر الخصم" disabled>
+                            <input type="number" step="0.01" name="discount_price" id="discount_price" value="{{ old('discount_price') }}" class="w-full bg-[#0a0a0a] border border-[#1a1a1a] rounded-lg px-4 py-3 text-white focus:border-[#E60914] placeholder-opacity-50" placeholder="سعر الخصم" disabled>
+                        </div>
+
+                        <!-- حقل التايمر الجديد -->
+                        <div>
+                            <label class="block text-gray-400 text-sm mb-2">تاريخ انتهاء العرض (التايمر)</label>
+                            <input type="datetime-local" name="offer_expires_at" id="offer_expires_at"
+                                value="{{ old('offer_expires_at') }}"
+                                class="w-full bg-[#0a0a0a] border border-[#1a1a1a] rounded-lg px-4 py-3 text-white focus:border-[#E60914] opacity-50 cursor-not-allowed" disabled>
                         </div>
                     </div>
 
@@ -99,19 +103,30 @@
         document.addEventListener('DOMContentLoaded', function() {
             const discountCheck = document.getElementById('is_discount');
             const discountInput = document.getElementById('discount_price');
+            const timerInput = document.getElementById('offer_expires_at'); // جلب حقل التايمر
 
             function toggleDiscountState() {
                 if (discountCheck.checked) {
                     discountInput.disabled = false;
                     discountInput.classList.remove('opacity-50');
+
+                    timerInput.disabled = false;
+                    timerInput.classList.remove('opacity-50', 'cursor-not-allowed');
                 } else {
                     discountInput.disabled = true;
                     discountInput.classList.add('opacity-50');
+
+                    // تفريغ الحقل وتعطيله عند إزالة الخصم
+                    timerInput.disabled = true;
+                    timerInput.classList.add('opacity-50', 'cursor-not-allowed');
+                    timerInput.value = '';
                 }
             }
 
+            // تشغيل الدالة عند تحميل الصفحة لضبط الحالة الأولية
             toggleDiscountState();
 
+            // الاستماع لتغييرات الـ Checkbox
             discountCheck.addEventListener('change', toggleDiscountState);
         });
     </script>
