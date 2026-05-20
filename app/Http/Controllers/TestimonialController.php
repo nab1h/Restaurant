@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Testimonial;
+use App\Mail\NewTestimonial;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -20,12 +22,9 @@ class TestimonialController extends Controller
         return view('admin.testimonials.create');
     }
 
-    /**
-     * حفظ الرأي الجديد في قاعدة البيانات
-     */
+
     public function store(Request $request)
     {
-        // التحقق من البيانات
         $validator = Validator::make($request->all(), [
             'name'    => 'required|string|max:255',
             'role'    => 'nullable|string|max:255',
@@ -33,7 +32,6 @@ class TestimonialController extends Controller
             'rating'  => 'required|integer|min:1|max:5',
         ]);
 
-        // إذا فشل التحقق
         if ($validator->fails()) {
             return response()->json([
                 'success' => false,
@@ -41,16 +39,16 @@ class TestimonialController extends Controller
             ], 422);
         }
 
-        // الحفظ في قاعدة البيانات
-        Testimonial::create([
+        $testimonial =Testimonial::create([
             'name'       => $request->name,
             'role'       => $request->role,
             'message'    => $request->message,
             'rating'     => $request->rating,
-            'is_active'  => false, // جعله غير نشط افتراضياً حتى يوافق الأدمن
+            'is_active'  => false,
         ]);
 
-        // إرجاع استجابة نجاح JSON
+        Mail::to('avora.fun.eg@gmail.com')->send(new NewTestimonial($testimonial));
+
         return response()->json([
             'success' => true,
             'message' => 'تم الإرسال بنجاح'

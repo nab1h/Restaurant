@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Reservation;
+use App\Mail\NewReservation;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
 
 class ReservationController extends Controller
@@ -89,7 +91,9 @@ class ReservationController extends Controller
         $validated['is_archive'] = 0;
         $validated['is_delete'] = 0;
 
-        Reservation::create($validated);
+        $reservation = Reservation::create($validated);
+
+        Mail::to('avora.fun.eg@gmail.com')->send(new NewReservation($reservation));
 
         return response()->json([
             'success' => true,

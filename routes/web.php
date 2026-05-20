@@ -17,6 +17,7 @@ use App\Http\Controllers\Admin\ProductController;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::post('/reservations', [ReservationController::class, 'store'])->name('reservations.store');
 Route::post('/testimonials', [TestimonialController::class, 'store'])->name('testimonials.store');
+Route::get('/menu', [HomeController::class, 'menu'])->name('menu');
 
 
 Route::middleware('auth')->group(
@@ -73,7 +74,7 @@ Route::middleware('auth')->group(
         Route::middleware('role:admin,sales')->group(function () {
             Route::resource('categories', CategoryController::class);
             Route::resource('products', ProductController::class);
-            
+
             Route::get('/reservations', [ReservationController::class, 'index'])
                 ->name('reservations.index');
 

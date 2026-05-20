@@ -36,4 +36,14 @@ class HomeController extends Controller
 
         return view('welcome',compact('limitedOffer','categories', 'items','setting', 'stats', 'content', 'faqs',  'heroVideo', 'heroImage', 'galleryImages', 'testimonials'));
     }
+
+
+    public function menu()
+    {
+        $setting = Setting::first();
+        $categories = Category::where('is_active', 1)->get();
+        $items = Product::where('is_available', 1)->get();
+
+        return view('menu', compact('categories', 'items', 'setting'));
+    }
 }
