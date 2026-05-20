@@ -40,6 +40,7 @@ class SettingsController extends Controller
             'whatsapp' => 'nullable|string',
             'email' => 'nullable|email',
             'map_link' => 'nullable|string',
+            'google_review_link' => 'nullable|url',
 
             'facebook' => 'nullable|url',
             'twitter' => 'nullable|url',
@@ -60,6 +61,7 @@ class SettingsController extends Controller
             'whatsapp',
             'email',
             'map_link',
+            'google_review_link',
             'facebook',
             'twitter',
             'instagram',

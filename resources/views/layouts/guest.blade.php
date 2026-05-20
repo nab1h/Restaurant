@@ -52,7 +52,7 @@
     <div class="page-bg min-h-screen flex flex-col sm:justify-center px-6 items-center pt-6 sm:pt-0 bg-gray-100">
         <div>
             <a href="/">
-                <img src="{{ asset('logo.png') }}" class="h-[220px] w-[220px]" />
+                <img src="{{ asset('avora.png') }}" class="h-[220px] w-[220px]" />
             </a>
         </div>
 

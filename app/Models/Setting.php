@@ -31,5 +31,6 @@ class Setting extends Model
         'whatsapp',
         'email',
         'map_link',
+        'google_review_link',
     ];
 }

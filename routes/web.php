@@ -9,7 +9,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StatisticController;
 use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\MediaController;
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\HomeContentController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\ProductController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::post('/reservations', [ReservationController::class, 'store'])->name('reservations.store');
@@ -40,10 +43,14 @@ Route::middleware('auth')->group(
 
             Route::prefix('admin')->name('admin.')->group(function () {
                 Route::resource('faqs', FaqController::class);
-            });
-
-            Route::prefix('admin')->name('admin.')->group(function () {
                 Route::resource('statistics', StatisticController::class);
+
+            });
+            Route::prefix('admin')->name('admin.')->group(function () {
+                Route::get('/users', [UserController::class, 'index'])->name('users.index');
+                Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
+                Route::post('/users/{id}/update-role', [UserController::class, 'updateRole'])->name('users.update-role');
+                Route::post('/users/{id}/update-password', [UserController::class, 'updatePassword'])->name('users.update-password');
             });
 
             Route::prefix('settings')->name('settings.')->group(function () {
@@ -64,6 +71,9 @@ Route::middleware('auth')->group(
 
         // admin + supervisor
         Route::middleware('role:admin,sales')->group(function () {
+            Route::resource('categories', CategoryController::class);
+            Route::resource('products', ProductController::class);
+            
             Route::get('/reservations', [ReservationController::class, 'index'])
                 ->name('reservations.index');
 
@@ -83,6 +93,8 @@ Route::middleware('auth')->group(
 
             Route::patch('/reservations/{id}/restore', [ReservationController::class, 'restore'])
                 ->name('reservations.restore');
+
+
         });
     }
 );

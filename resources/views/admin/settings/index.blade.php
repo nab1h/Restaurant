@@ -234,6 +234,13 @@
                                     <p class="text-xs text-gray-600 mt-1">انسخ كود الـ Embed من Google Maps وضعه هنا.</p>
                                 </div>
 
+                                <div class="md:col-span-2">
+                                    <label class="block text-gray-400 text-sm mb-2">رابط تقييمات جوجل (Google Review Link)</label>
+                                    <input type="url" name="google_review_link" value="{{ old('google_review_link', $setting->google_review_link) }}"
+                                        class="w-full bg-[#0a0a0a] border border-[#1a1a1a] rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#E60914]"
+                                        placeholder="https://g.page/r/...">
+                                </div>
+
                             </div>
 
                         </div>

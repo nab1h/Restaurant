@@ -19,11 +19,13 @@
                 </div>
 
 
+                @if(auth()->user()->role === 'admin')
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('profile.index')" :active="request()->routeIs('profile.index')">
-                        {{ __('Dashboard') }}
+                    <x-nav-link :href="route('admin.users.index')" :active="request()->routeIs('admin.users.index')">
+                        {{ __('Users') }}
                     </x-nav-link>
                 </div>
+                @endif
 
 
                 @if(auth()->user()->role === 'admin')
@@ -42,6 +44,23 @@
                     </x-nav-link>
                 </div>
                 @endif
+
+                @if(auth()->user()->role === 'admin' || auth()->user()->role === 'sales')
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('products.index')" :active="request()->routeIs('products.index')">
+                        {{ __('Products') }}
+                    </x-nav-link>
+                </div>
+                @endif
+
+                @if(auth()->user()->role === 'admin' || auth()->user()->role === 'sales')
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('categories.index')" :active="request()->routeIs('categories.index')">
+                        {{ __('categories') }}
+                    </x-nav-link>
+                </div>
+                @endif
+
 
                 @if(auth()->user()->role === 'admin')
                 <div class="hidden sm:flex sm:items-center sm:ms-10 relative group">
@@ -87,6 +106,7 @@
                                 class="block px-4 py-3 text-sm text-gray-300 hover:bg-gray-800 hover:text-white transition">
                                 FAQs
                             </a>
+
 
                         </div>
                     </div>
