@@ -1969,9 +1969,9 @@
         <div class="container">
             <div class="form-layout">
                 <div class="form-intro">
-                    <h3 data-lang="share_exp_title">شاركنا تجربتك</h3>
+                    <h3 data-lang="share_exp_title">Share Your Experience</h3>
                     <p data-lang="share_exp_desc">
-                        نسعى دائماً لتقديم أفضل تجربة طعام لعملائنا. رأيك يهمنا جداً ويساعدنا على التحسين المستمر. نحن نتطلع لسماع قصتك معنا.
+                        We always strive to provide the best dining experience. Your opinion matters greatly and helps us improve continuously. We look forward to hearing your story.
                     </p>
                     <div style="font-size: 3rem; color: rgba(212, 175, 55, 0.2);">
                         <i class="fas fa-quote-right"></i>
@@ -1981,24 +1981,28 @@
                 <div class="review-form-card">
                     <div id="successMessage" style="display: none; text-align: center; padding: 40px 0;">
                         <i class="fas fa-check-circle" style="font-size: 4rem; color: #4ade80; margin-bottom: 20px;"></i>
-                        <h3 style="color: #fff; font-family: 'Cormorant Garamond', serif; font-size: 2rem; margin-bottom: 10px;">شكراً لك!</h3>
-                        <p style="color: #aaa;">تم إرسال تقييمك بنجاح وسيتم نشره بعد المراجعة.</p>
-                        <button onclick="resetFormView()" style="margin-top: 20px; background: transparent; border: 1px solid #333; color: #fff; padding: 10px 20px; cursor: pointer; border-radius: 4px;">إضافة تقييم آخر</button>
+                        <h3 data-lang="success_thank_you" style="color: #fff; font-family: 'Cormorant Garamond', serif; font-size: 2rem; margin-bottom: 10px;">Thank You!</h3>
+                        <p data-lang="success_review_msg" style="color: #aaa;">Your review has been submitted successfully and will be published after review.</p>
+                        <button onclick="resetFormView()" data-lang="success_add_another" style="margin-top: 20px; background: transparent; border: 1px solid #333; color: #fff; padding: 10px 20px; cursor: pointer; border-radius: 4px;">Add Another Review</button>
                     </div>
 
                     <form id="reviewForm" action="{{ route('testimonials.store') }}" method="POST">
                         @csrf
                         <div class="input-group">
-                            <input type="text" name="name" id="inputName" class="review-input" placeholder="الاسم الكامل" required value="{{ old('name') }}">
+                            <input type="text" name="name" id="inputName" class="review-input"
+                                data-placeholder-en="Full Name" data-placeholder-ar="الاسم الكامل"
+                                placeholder="Full Name" required value="{{ old('name') }}">
                             <span class="error-msg" id="error-name"></span>
                         </div>
 
                         <div class="input-group">
-                            <input type="text" name="role" class="review-input" placeholder="المنصب (اختياري)" value="{{ old('role') }}">
+                            <input type="text" name="role" class="review-input"
+                                data-placeholder-en="Role (Optional)" data-placeholder-ar="المنصب (اختياري)"
+                                placeholder="Role (Optional)" value="{{ old('role') }}">
                         </div>
 
-                        <div class="input-group" style="text-align: right;">
-                            <label style="display:block; margin-bottom:10px; color:#888; font-size:0.9rem;">قيم تجربتك:</label>
+                        <div class="input-group">
+                            <label data-lang="rate_experience" style="display:block; margin-bottom:10px; color:#888; font-size:0.9rem;">Rate your experience:</label>
                             <div class="star-rating">
                                 <input type="radio" id="star5" name="rating" value="5" required /><label for="star5" class="fas fa-star"></label>
                                 <input type="radio" id="star4" name="rating" value="4" /><label for="star4" class="fas fa-star"></label>
@@ -2010,12 +2014,14 @@
                         </div>
 
                         <div class="input-group">
-                            <textarea name="message" id="inputMessage" class="review-input" rows="4" placeholder="اكتب تجربتك هنا..." required>{{ old('message') }}</textarea>
+                            <textarea name="message" id="inputMessage" class="review-input" rows="4"
+                                data-placeholder-en="Write your experience here..." data-placeholder-ar="اكتب تجربتك هنا..."
+                                placeholder="Write your experience here..." required>{{ old('message') }}</textarea>
                             <span class="error-msg" id="error-message"></span>
                         </div>
 
                         <button type="submit" id="submitBtn" class="btn-submit-review">
-                            إرسال التقييم <i class="fas fa-paper-plane" style="margin-right: 10px;"></i>
+                            <span data-lang="submit_review">Submit Review</span> <i class="fas fa-paper-plane" style="margin-right: 10px;"></i>
                         </button>
                     </form>
                 </div>
@@ -2187,18 +2193,7 @@
         </div>
     </section>
 
-    <!-- Luxury Toast Notification -->
-    <div id="luxury-toast" class="luxury-toast">
-        <div class="lux-toast-icon">
-            <i class="fas fa-check-circle"></i>
-        </div>
-        <div class="lux-toast-content">
-            <h4 class="lux-toast-title">Success</h4>
-            <p class="lux-toast-message">Your action was completed successfully.</p>
-        </div>
-        <button class="lux-toast-close" onclick="closeLuxuryToast()">&times;</button>
-        <div class="lux-toast-progress"></div>
-    </div>
+
     <!-- Footer -->
     <footer>
         <div class="container">
@@ -2275,7 +2270,14 @@
                 lux_hours: "Hours",
                 lux_mins: "Mins",
                 lux_secs: "Secs",
-                lux_offer_btn: "Reserve Your Spot"
+                lux_offer_btn: "Reserve Your Spot",
+                share_exp_title: "Share Your Experience",
+                share_exp_desc: "We always strive to provide the best dining experience. Your opinion matters greatly and helps us improve continuously. We look forward to hearing your story.",
+                success_thank_you: "Thank You!",
+                success_review_msg: "Your review has been submitted successfully and will be published after review.",
+                success_add_another: "Add Another Review",
+                rate_experience: "Rate your experience:",
+                submit_review: "Submit Review"
             },
             ar: {
                 nav_home: "الرئيسية",
@@ -2328,7 +2330,14 @@
                 lux_hours: "ساعات",
                 lux_mins: "دقائق",
                 lux_secs: "ثواني",
-                lux_offer_btn: "احجز مكانك الآن"
+                lux_offer_btn: "احجز مكانك الآن",
+                share_exp_title: "شاركنا تجربتك",
+                share_exp_desc: "نسعى دائماً لتقديم أفضل تجربة طعام لعملائنا. رأيك يهمنا جداً ويساعدنا على التحسين المستمر. نحن نتطلع لسماع قصتك معنا.",
+                success_thank_you: "شكراً لك!",
+                success_review_msg: "تم إرسال تقييمك بنجاح وسيتم نشره بعد المراجعة.",
+                success_add_another: "إضافة تقييم آخر",
+                rate_experience: "قيم تجربتك:",
+                submit_review: "إرسال التقييم"
             }
         };
 
@@ -2366,6 +2375,15 @@
 
                 if (text && text.trim() !== "") {
                     el.textContent = text;
+                }
+            });
+            document.querySelectorAll('[data-placeholder-en]').forEach(el => {
+                const placeholderText = currentLanguage === 'ar' ?
+                    el.getAttribute('data-placeholder-ar') :
+                    el.getAttribute('data-placeholder-en');
+
+                if (placeholderText) {
+                    el.setAttribute('placeholder', placeholderText);
                 }
             });
         }
