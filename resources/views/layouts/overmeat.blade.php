@@ -619,7 +619,7 @@
         /* --- Modern Testimonials Section Design --- */
         .modern-testimonials {
             position: relative;
-            background-image: url('https://picsum.photos/seed/restaurant_dark_luxury/1920/1080');
+            background-image: url('testmonials.jpeg');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
