@@ -60,10 +60,10 @@
                         </h3>
                         <span class="menu-luxury-price">
                             @if($item->is_discount && $item->discount_price)
-                            <span class="old-price">${{ $item->price }}</span>
-                            <span class="new-price">${{ $item->discount_price }}</span>
+                            <span class="old-price">{{ $item->price }} <span data-lang="currency">SAR</span></span>
+                            <span class="new-price">{{ $item->discount_price }} <span data-lang="currency">SAR</span></span>
                             @else
-                            ${{ $item->price }}
+                            {{ $item->price }} <span data-lang="currency">SAR</span>
                             @endif
                         </span>
                     </div>

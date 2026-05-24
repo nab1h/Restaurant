@@ -5,9 +5,8 @@
 
 <!-- Hero Section -->
 <section id="home" class="hero">
-    <video class="hero-video" autoplay muted loop playsinline>
-        <source src="{{ asset('storage/' . $heroVideo->path) }}" type="video/mp4">
-    </video>
+
+        <img src="banner.jpeg" class="hero-video" alt="Hero Background">
     <div class="hero-overlay"></div>
     <div class="hero-content">
         <span class="hero-subtitle"
@@ -33,19 +32,16 @@
     <div class="container">
         <div class="luxury-offer-layout">
 
-            <!-- جانب الصورة مع التأثيرات -->
             <div class="luxury-offer-image-side">
                 <div class="luxury-img-glow"></div>
                 <img src="{{ $limitedOffer->image ? asset('storage/' . $limitedOffer->image) : 'https://picsum.photos/seed/luxury_dish/600/700' }}" alt="{{ $limitedOffer->name_en }}" class="luxury-offer-img">
 
-                <!-- شارة العرض النابضة -->
                 <div class="luxury-offer-badge">
                     <i class="fas fa-bolt"></i>
                     <span data-lang="lux_offer_badge">Limited Time</span>
                 </div>
             </div>
 
-            <!-- جانب التفاصيل والتايمر -->
             <div class="luxury-offer-content">
                 <p class="luxury-eyebrow" data-lang="lux_offer_eyebrow">Don't Miss Out</p>
 
@@ -61,13 +57,11 @@
                     {{ $limitedOffer->description_en }}
                 </p>
 
-                <!-- الأسعار -->
                 <div class="luxury-pricing">
                     <span class="luxury-old-price">${{ $limitedOffer->price }}</span>
                     <span class="luxury-new-price">${{ $limitedOffer->discount_price }}</span>
                 </div>
 
-                <!-- مؤقت العد التنازلي الفاخر -->
                 <div class="luxury-countdown-head" data-lang="lux_countdown_head">Offer Ends In:</div>
                 <div class="luxury-countdown" id="luxury-timer" data-expires="{{ $limitedOffer->offer_expires_at }}">
                     <div class="luxury-time-box">
@@ -133,8 +127,6 @@
         </div>
     </div>
 </section>
-
-<!-- Menu Section -->
 <!-- Menu Section -->
 <section id="menu" class="section-padding menu-section">
     <div class="container">
@@ -144,16 +136,24 @@
         </div>
 
         <div class="menu-filters">
-            <!-- زر الكل -->
-            <button class="filter-btn active" data-filter="all" data-lang="filter_all">All</button>
+            <div class="filter-item" onclick="filterMenu('all', this.querySelector('.filter-btn'))">
+                <button class="filter-btn" data-filter="all">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2665/2665620.png" alt="All">
+                </button>
+                <span class="filter-label" data-lang="filter_all">All</span>
+            </div>
 
-            <!-- أزرار الأصناف الديناميكية -->
             @foreach($categories as $category)
-            <button class="filter-btn" data-filter="cat-{{ $category->id }}">
-                <span data-content-en="{{ $category->name_en }}" data-content-ar="{{ $category->name_ar }}">
+            <div class="filter-item" onclick="filterMenu('cat-{{ $category->id }}', this.querySelector('.filter-btn'))">
+                <button class="filter-btn" data-filter="cat-{{ $category->id }}">
+                    <img src="{{ $category->image ? asset('storage/' . $category->image) : 'https://picsum.photos/seed/food/200/200' }}" alt="{{ $category->name_en }}">
+                </button>
+                <span class="filter-label"
+                    data-content-en="{{ $category->name_en }}"
+                    data-content-ar="{{ $category->name_ar }}">
                     {{ $category->name_en }}
                 </span>
-            </button>
+            </div>
             @endforeach
         </div>
 
@@ -173,11 +173,14 @@
 
                         <span class="dish-price">
                             @if($item->is_discount && $item->discount_price)
-                            <!-- عرض السعر القديم مشطوب والسعر الجديد -->
-                            <span style="text-decoration: line-through; color: #888; font-size: 0.8em; margin-right: 5px;">${{ $item->price }}</span>
-                            <span style="color: #4ade80;">${{ $item->discount_price }}</span>
+                            <span style="text-decoration: line-through; color: #888; font-size: 0.8em; margin-right: 5px;">
+                                {{ $item->price }} <span data-lang="currency">SAR</span>
+                            </span>
+                            <span style="color: #4ade80;">
+                                {{ $item->discount_price }} <span data-lang="currency">SAR</span>
+                            </span>
                             @else
-                            ${{ $item->price }}
+                            {{ $item->price }} <span data-lang="currency">SAR</span>
                             @endif
                         </span>
                     </div>
@@ -351,6 +354,9 @@
                         <option value="19:00">7:00 PM</option>
                         <option value="20:00">8:00 PM</option>
                         <option value="21:00">9:00 PM</option>
+                        <option value="22:00">10:00 PM</option>
+                        <option value="23:00">11:00 PM</option>
+                        <option value="00:00">12:00 PM</option>
                     </select>
                 </div>
             </div>
@@ -480,5 +486,16 @@
         </div>
     </div>
 </section>
+<div class="floating-buttons">
+    <!-- زرار الواتساب -->
+    <a href="https://wa.me/966565048142?text=مرحباً،%20أرغب%20في%20حجز%20طاولة" class="float-btn whatsapp" target="_blank" aria-label="حجز واتساب">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <!-- زرار الاتصال -->
+    <a href="tel:+966565048142" class="float-btn call" aria-label="اتصل بنا">
+        <i class="fa-solid fa-phone"></i>
+    </a>
+</div>
 
 @endsection

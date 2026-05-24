@@ -403,49 +403,70 @@
             margin-bottom: 60px;
         }
 
-        .section-header h2 {
-            font-size: 3.5rem;
-            color: var(--gold-primary);
-            margin-bottom: 10px;
-        }
-
         .menu-filters {
             display: flex;
             justify-content: center;
+            flex-wrap: wrap;
             gap: 30px;
-            margin-bottom: 50px;
+            margin-bottom: 60px;
+        }
+
+        .filter-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .filter-item:hover {
+            transform: translateY(-5px);
         }
 
         .filter-btn {
-            background: none;
-            border: none;
-            color: var(--text-muted);
-            font-family: var(--font-serif);
-            font-size: 1.5rem;
-            cursor: pointer;
-            transition: var(--transition);
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+            background: transparent;
+            padding: 0;
             position: relative;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
-        .filter-btn.active,
-        .filter-btn:hover {
-            color: var(--gold-primary);
-        }
-
-        .filter-btn::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 0;
-            height: 1px;
-            background: var(--gold-primary);
-            transition: width 0.3s;
-        }
-
-        .filter-btn.active::after {
+        .filter-btn img {
             width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .filter-btn.active {
+            border-color: var(--gold-primary);
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+        }
+
+        .filter-btn.active img {
+            transform: scale(1.1);
+            filter: brightness(0.8);
+        }
+
+        .filter-label {
+            margin-top: 12px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.3s ease;
+            text-align: center;
+        }
+
+        .filter-btn.active+.filter-label {
+            color: var(--gold-primary);
         }
 
         .menu-grid {
@@ -2169,6 +2190,123 @@
                 margin: 0 auto;
             }
         }
+
+        @media (max-width: 768px) {
+            .mobile-toggle {
+                display: block;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 75%;
+                height: 100vh;
+                background: rgba(10, 10, 10, 0.98);
+                backdrop-filter: blur(10px);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 30px;
+                transition: right 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+                z-index: 999;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .nav-link {
+                font-size: 1.2rem;
+            }
+
+            .lang-switch {
+                position: fixed;
+                bottom: 40px;
+                right: -100%;
+                width: 75%;
+                display: flex;
+                justify-content: center;
+                transition: right 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+                z-index: 999;
+            }
+
+            .lang-switch.active {
+                right: 0;
+            }
+        }
+
+
+        .floating-buttons {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 9999;
+        }
+
+        .float-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            color: #fff;
+            font-size: 30px;
+            text-decoration: none;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .float-btn.whatsapp {
+            background-color: #25D366;
+        }
+
+
+        .float-btn.call {
+            background-color: #007bff;
+        }
+
+
+        .float-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+        }
+
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.5);
+            }
+
+            70% {
+                box-shadow: 0 0 0 15px rgba(37, 211, 102, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+            }
+        }
+
+        .float-btn.whatsapp {
+            animation: pulse 2s infinite;
+        }
+
+        @media (max-width: 768px) {
+            .floating-buttons {
+                bottom: 20px;
+                right: 20px;
+            }
+
+            .float-btn {
+                width: 55px;
+                height: 55px;
+                font-size: 26px;
+            }
+        }
     </style>
 </head>
 
@@ -2375,6 +2513,7 @@
                 footer_pages: "Quick Links",
                 footer_categories: "Our Menu",
                 footer_contact: "Contact Us",
+                currency: "SAR",
             },
             ar: {
                 nav_home: "الرئيسية",
@@ -2442,6 +2581,7 @@
                 footer_pages: "روابط سريعة",
                 footer_categories: "قائمة الطعام",
                 footer_contact: "تواصل معنا",
+                currency: "ر.س",
             }
         };
 
@@ -2585,37 +2725,28 @@
             stagger: 0.1
         });
 
-        // --- Menu Filtering ---
-        const filterBtns = document.querySelectorAll('.filter-btn');
-        const menuItems = document.querySelectorAll('.menu-item');
+        window.filterMenu = function(filterValue, btnElement) {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            if (btnElement) btnElement.classList.add('active');
 
-        filterBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                filterBtns.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-
-                const filterValue = btn.getAttribute('data-filter');
-
-                menuItems.forEach(item => {
-                    item.classList.remove('show');
-
-                    if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
-                        item.style.display = 'block';
-                        setTimeout(() => item.classList.add('show'), 10);
-                    } else {
-                        item.style.display = 'none';
-                    }
-                });
-            });
-
-            window.addEventListener('DOMContentLoaded', () => {
-                menuItems.forEach(item => {
+            const menuItems = document.querySelectorAll('.menu-item');
+            menuItems.forEach(item => {
+                item.classList.remove('show');
+                if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
                     item.style.display = 'block';
-                    setTimeout(() => item.classList.add('show'), 100); // تأخير بسيط عشان الـ Animation تشتغل
-                });
+                    setTimeout(() => item.classList.add('show'), 10);
+                } else {
+                    item.style.display = 'none';
+                }
             });
-        });
+        };
 
+        document.addEventListener('DOMContentLoaded', () => {
+            const firstBtn = document.querySelector('.filter-btn.active');
+            if (firstBtn) {
+                filterMenu('all', firstBtn);
+            }
+        });
         // --- Testimonial Slider ---
         let currentSlide = 0;
         const slides = document.querySelectorAll('.testimonial-card');

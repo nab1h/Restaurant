@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 17, 2026 at 07:09 PM
+-- Generation Time: May 20, 2026 at 10:12 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `avora`
+-- Database: `restaurant`
 --
 
 -- --------------------------------------------------------
@@ -44,6 +44,30 @@ CREATE TABLE `cache_locks` (
   `owner` varchar(255) NOT NULL,
   `expiration` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `categories`
+--
+
+CREATE TABLE `categories` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name_ar` varchar(255) NOT NULL,
+  `name_en` varchar(255) NOT NULL,
+  `image` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `is_active` tinyint(1) NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `categories`
+--
+
+INSERT INTO `categories` (`id`, `name_ar`, `name_en`, `image`, `created_at`, `updated_at`, `is_active`) VALUES
+(2, 'اطباق ساخنه', 'main course', 'categories/5ufCbbacx4HGw7ZC1FM4hhUsnFH99NlQacALTyup.png', '2026-05-20 10:00:05', '2026-05-20 10:00:05', 1),
+(3, 'اطباق ساخنهaaa', 'main course', 'categories/Jh9ZG9ORh4DGxGZbcd8ahdbcUkKuY5qLfl3ioofw.png', '2026-05-20 13:11:58', '2026-05-20 13:13:57', 1);
 
 -- --------------------------------------------------------
 
@@ -112,7 +136,7 @@ CREATE TABLE `home_contents` (
 --
 
 INSERT INTO `home_contents` (`id`, `hero_title_en`, `hero_title_ar`, `hero_subtitle_en`, `hero_subtitle_ar`, `about_title_en`, `about_title_ar`, `about_desc_en`, `about_desc_ar`, `created_at`, `updated_at`) VALUES
-(1, 'Taste the Art of Perfection', 'تذوق فن الكمال', 'Experience the Extraordinar', 'اختبر الاستثنائي', 'Our Story', 'قصتنا', 'Founded in 2010, Aurum represents the pinnacle of culinary excellence. Our philosophy is simple: source the finest ingredients, treat them with respect, and transform them into unforgettable memories. Under the guidance of Executive Chef Alessandro Marco, we invite you on a journey through flavor, texture, and emotion.', 'تأسس أوروم في عام 2010، ويمثل قمة التميز الطهوي. فلسفتنا بسيطة: الحصول على أجود المكونات، ومعاملتها باحترام، وتحويلها إلى ذكريات لا تُنسى. تحت إشراف الشيف التنفيذي أليساندرو ماركو، ندعوك في رحلة عبر النكهة والملمس والمشاعر.', '2026-05-15 11:06:18', '2026-05-15 11:31:04');
+(1, 'Taste the Art of Perfection', 'تذوق فن الكمال', 'Experience the Extraordinar', 'اختبر الاستثنائي', 'Our Story', 'قصتنا', 'OVERMEAT is a Saudi restaurant specialized in serving premium smoked meats, brisket, and steak in an authentic American style, with an unforgettable flavor.', 'OVERMEAT مطعم سعودي متخصص في تقديم لحوم مدخنة فاخرة، بريسكت وستيك على الطريقة الأمريكية الأصيلة، بنكهة ما تنساها.', '2026-05-15 11:06:18', '2026-05-20 13:48:31');
 
 -- --------------------------------------------------------
 
@@ -206,7 +230,12 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (9, '2026_05_15_154255_create_faqs_table', 5),
 (10, '2026_05_15_161312_create_media_table', 6),
 (11, '2026_05_16_223005_create_testimonials_table', 7),
-(12, '2026_05_17_121648_create_statistics_table', 8);
+(12, '2026_05_17_121648_create_statistics_table', 8),
+(13, '2026_05_20_124559_create_categories_table', 9),
+(14, '2026_05_20_131214_create_products_table', 10),
+(15, '2026_05_20_133230_add_is_active_to_categories_table', 11),
+(16, '2026_05_20_134748_add_google_review_link_to_settings_table', 12),
+(17, '2026_05_20_175756_add_offer_expires_at_to_products_table', 13);
 
 -- --------------------------------------------------------
 
@@ -219,6 +248,38 @@ CREATE TABLE `password_reset_tokens` (
   `token` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `products`
+--
+
+CREATE TABLE `products` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `cat_id` bigint(20) UNSIGNED NOT NULL,
+  `name_ar` varchar(255) NOT NULL,
+  `name_en` varchar(255) NOT NULL,
+  `description_ar` text NOT NULL,
+  `description_en` text NOT NULL,
+  `price` decimal(10,2) NOT NULL,
+  `is_discount` tinyint(1) NOT NULL DEFAULT 0,
+  `discount_price` decimal(10,2) DEFAULT NULL,
+  `offer_expires_at` timestamp NULL DEFAULT NULL,
+  `is_available` tinyint(1) NOT NULL DEFAULT 1,
+  `image` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `products`
+--
+
+INSERT INTO `products` (`id`, `cat_id`, `name_ar`, `name_en`, `description_ar`, `description_en`, `price`, `is_discount`, `discount_price`, `offer_expires_at`, `is_available`, `image`, `created_at`, `updated_at`) VALUES
+(2, 2, 'اطباق ساخنه', 'سبيشيبشس', 'سبيشسيب', 'شسيبشسيب', 1500.00, 1, 100.00, NULL, 1, 'products/9g7V2PbAR0UzTIlejq2lhI8B9coLRSxjapXHXkcq.png', '2026-05-20 10:43:22', '2026-05-20 10:43:37'),
+(3, 3, 'اطباق ساخنه', 'main course', 'asdfasdf', 'asdf', 1500.00, 1, 100.00, NULL, 1, 'products/5TDYvH1dI4zUruCRzY7umrRZfsIScYps6GbCan2a.png', '2026-05-20 13:15:42', '2026-05-20 13:15:42'),
+(4, 3, 'asdfa', 'fdas', 'afd', 'adfadf', 1200.00, 1, 1000.00, '2026-05-21 18:18:00', 1, 'products/v3Qban01Xd8wKkUNHDV0fekzxCPHhpAsMRT8G5WY.png', '2026-05-20 13:16:45', '2026-05-20 15:18:29');
 
 -- --------------------------------------------------------
 
@@ -247,8 +308,7 @@ CREATE TABLE `reservations` (
 
 INSERT INTO `reservations` (`id`, `name`, `phone`, `guests`, `reservation_date`, `reservation_time`, `status`, `notes`, `is_archive`, `is_delete`, `created_at`, `updated_at`) VALUES
 (1, 'Bebo Alashmawy', '+201505253851', 3, '2026-05-06', '21:00:00', 'confirmed', NULL, 1, 0, '2026-05-17 10:19:48', '2026-05-17 10:26:15'),
-(2, 'nabih', '+20123456789', 3, '2026-05-18', '21:00:00', 'pending', NULL, 0, 0, '2026-05-17 12:07:17', '2026-05-17 12:07:17'),
-(3, 'nabih', '+20123456789', 3, '2026-05-18', '20:00:00', 'completed', NULL, 0, 0, '2026-05-17 12:08:37', '2026-05-17 12:08:57');
+(5, 'Bebo Alashmawy ييي', '+201505253851', 2, '2026-05-21', '20:00:00', 'pending', NULL, 0, 0, '2026-05-20 17:02:21', '2026-05-20 17:02:21');
 
 -- --------------------------------------------------------
 
@@ -270,7 +330,8 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('jowyP0Vc2nCfGUZyYlvqGOxZOY4fhBD59HQ6KfGo', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoia3F2NjBhOGNzcGVHRDFRSEk2MnJNVU1WMnFramVPbGp1aG1zMGoyNCI7czozOiJ1cmwiO2E6MDp7fXM6OToiX3ByZXZpb3VzIjthOjI6e3M6MzoidXJsIjtzOjM0OiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvcmVzZXJ2YXRpb25zIjtzOjU6InJvdXRlIjtzOjE4OiJyZXNlcnZhdGlvbnMuaW5kZXgiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO30=', 1779036867);
+('2scno6EsahOTwX3J2Muzp10Wd6mqopWpV9em67gn', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoia01GYzBtbWIyWmVyenJzOUdBQ0Z5dGJacHoxcjZnSkhDU0xyOW5NbyI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MjY6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9tZW51IjtzOjU6InJvdXRlIjtzOjQ6Im1lbnUiO31zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO30=', 1779307471),
+('oJFR16FTP3YIqBCTFCJOjUJjuQL6y9pnmJTYgSyc', 4, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiSVI2QUVWczNTYXlGVUVhRnpFQno0cWhWcUhJcG5GUGU4RHhxSldhaSI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6Mjc6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9sb2dpbiI7czo1OiJyb3V0ZSI7czo1OiJsb2dpbiI7fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjQ7czozOiJ1cmwiO2E6MTp7czo4OiJpbnRlbmRlZCI7czoyOToiaHR0cDovLzEyNy4wLjAuMTo4MDAwL3Byb2ZpbGUiO319', 1779307447);
 
 -- --------------------------------------------------------
 
@@ -302,15 +363,16 @@ CREATE TABLE `settings` (
   `mobile` varchar(255) DEFAULT NULL,
   `whatsapp` varchar(255) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
-  `map_link` text DEFAULT NULL
+  `map_link` text DEFAULT NULL,
+  `google_review_link` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `settings`
 --
 
-INSERT INTO `settings` (`id`, `site_name`, `site_title`, `meta_description`, `logo`, `icon_180`, `icon_32`, `icon_16`, `manifest`, `created_at`, `updated_at`, `address_en`, `address_ar`, `hours_en`, `hours_ar`, `facebook`, `twitter`, `instagram`, `snapchat`, `tiktok`, `mobile`, `whatsapp`, `email`, `map_link`) VALUES
-(1, 'عووو', 'عووو', 'عووو', 'logo/BVnkPcpEmal5Ns3oeGRqT6pj7787oTB9cDIrzq78.png', 'icon_180/BMvWxo1buzmthojTH9QpwSEeGXprBJQ3Kc8mUS0W.jpg', 'icon_32/GZ35giIrhUkTKe7mm8MQ7J36yBn0l1pNeIAvWBQV.png', 'icon_16/FDs9r5GUaxqpB9NheQKH4VaI9Kbym7jqNUINuQse.png', NULL, '2026-05-14 16:54:38', '2026-05-15 13:48:29', 'english', NULL, 'english', NULL, 'https://www.facebook.com/nab1h', 'https://www.facebook.com/nab1h', 'https://www.facebook.com/nab1h', 'https://www.facebook.com/nab1h', NULL, '1505253851', '+20123456789', 'beboalashmawy@gmail.com', '<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d55244.21560874368!2d31.288166885998187!3d30.072313582744943!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14368976c35c36e9%3A0x2c45a00925c4c444!2z2YXYtdix!5e0!3m2!1sar!2seg!4v1778794925380!5m2!1sar!2seg\" width=\"700\" height=\"650\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>');
+INSERT INTO `settings` (`id`, `site_name`, `site_title`, `meta_description`, `logo`, `icon_180`, `icon_32`, `icon_16`, `manifest`, `created_at`, `updated_at`, `address_en`, `address_ar`, `hours_en`, `hours_ar`, `facebook`, `twitter`, `instagram`, `snapchat`, `tiktok`, `mobile`, `whatsapp`, `email`, `map_link`, `google_review_link`) VALUES
+(1, 'OVERMEAT', 'OVERMEAT | Restaurant & Food Ordering', 'هو مطعم سعودي متخصص في تقديم لحوم\r\nمدخنة فاخرة، بريسكت وستيك على الطريقة الأمريكية الأصيلة، بنكهة ما تنساها.\r\nزورنا في حي النسيم – جدة', 'logo/d2bAcZtS6xOUBvFetAxZzR8DaJhZ0vxL9grnXOCE.png', 'icon_180/avtH7GZRLhaHa6pxC76gIGtpFmgWyCe0x37TFltf.png', 'icon_32/tEI5FInf3qRKosO9xmTygufgxOidBwGwgrHVR7Hd.png', 'icon_16/YDCOLOxB7YMUAHhJpAL0psd7p0gS0XMi4LGAExRZ.png', NULL, '2026-05-14 16:54:38', '2026-05-20 16:23:11', 'Jeddah - Al Naseem District, Saudi Arabia', 'جده-حي النسيم -المملكة العربية السعودية', 'Daily from 6:00 PM to 12:00 AM', 'يوميًا من الساعة 6 مساءً إلى 12 مساءً', 'https://www.facebook.com/nab1h2', 'https://www.facebook.com/nab1h2', 'https://www.facebook.com/nab1h2', 'https://www.facebook.com/nab1h2', NULL, '+966 54 340 6804', '+966 56 504 8142', 'social@overmeat.sa', '<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d55244.21560874368!2d31.288166885998187!3d30.072313582744943!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14368976c35c36e9%3A0x2c45a00925c4c444!2z2YXYtdix!5e0!3m2!1sar!2seg!4v1778794925380!5m2!1sar!2seg\" width=\"700\" height=\"650\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>', 'https://www.facebook.com/nab1h2');
 
 -- --------------------------------------------------------
 
@@ -362,7 +424,9 @@ CREATE TABLE `testimonials` (
 INSERT INTO `testimonials` (`id`, `name`, `role`, `message`, `rating`, `is_active`, `created_at`, `updated_at`) VALUES
 (1, 'أحمد محمد', 'مدير تسويق', 'تجربة رائعة بكل المقاييس! التصميم كان أكثر مما توقعت.', 5, 1, '2026-05-16 19:34:18', '2026-05-16 19:52:46'),
 (2, 'سارة علي', 'صاحبة مشروع', 'خدمة ممتازة ولكن التوصيل تأخر قليلاً.', 4, 1, '2026-05-16 19:34:18', '2026-05-16 19:34:18'),
-(5, 'ششب', 'يبشسيب', 'شيبشيبش', 5, 0, '2026-05-16 20:29:51', '2026-05-16 20:29:51');
+(5, 'ششب', 'يبشسيب', 'شيبشيبش', 5, 0, '2026-05-16 20:29:51', '2026-05-16 20:29:51'),
+(7, 'nabih', 'يبشسيب', 'asdfasdfsadf', 3, 0, '2026-05-20 15:44:39', '2026-05-20 15:44:39'),
+(8, 'nabih', 'sfsdfasdf', 'sadfsadfasdf', 3, 0, '2026-05-20 16:57:40', '2026-05-20 16:57:40');
 
 -- --------------------------------------------------------
 
@@ -387,7 +451,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `role`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Bebo Alashmawy', 'beboalashmawy@gmail.com', 'admin', NULL, '$2y$12$NP/xDQ0ia0PIIFcok0ZyFuQUj14ygAE/xYqG5i8yTx3merX9z.0rq', NULL, '2026-05-14 16:54:17', '2026-05-14 16:54:17');
+(1, 'Bebo Alashmawy', 'beboalashmawy@gmail.com', 'admin', NULL, '$2y$12$NP/xDQ0ia0PIIFcok0ZyFuQUj14ygAE/xYqG5i8yTx3merX9z.0rq', NULL, '2026-05-14 16:54:17', '2026-05-14 16:54:17'),
+(3, 'avora', 'avora008@avora.fun', 'sales', NULL, '$2y$12$KBXrisrsLlnHenUS9VZhteGyh1vGCkrsPFU2RLnFFlnoBYq/TKjV6', NULL, '2026-05-20 11:36:18', '2026-05-20 12:55:41');
 
 --
 -- Indexes for dumped tables
@@ -406,6 +471,12 @@ ALTER TABLE `cache`
 ALTER TABLE `cache_locks`
   ADD PRIMARY KEY (`key`),
   ADD KEY `cache_locks_expiration_index` (`expiration`);
+
+--
+-- Indexes for table `categories`
+--
+ALTER TABLE `categories`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `failed_jobs`
@@ -458,6 +529,13 @@ ALTER TABLE `password_reset_tokens`
   ADD PRIMARY KEY (`email`);
 
 --
+-- Indexes for table `products`
+--
+ALTER TABLE `products`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `products_cat_id_foreign` (`cat_id`);
+
+--
 -- Indexes for table `reservations`
 --
 ALTER TABLE `reservations`
@@ -501,6 +579,12 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `categories`
+--
+ALTER TABLE `categories`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
@@ -534,13 +618,19 @@ ALTER TABLE `media`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+
+--
+-- AUTO_INCREMENT for table `products`
+--
+ALTER TABLE `products`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `reservations`
 --
 ALTER TABLE `reservations`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `settings`
@@ -558,13 +648,23 @@ ALTER TABLE `statistics`
 -- AUTO_INCREMENT for table `testimonials`
 --
 ALTER TABLE `testimonials`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `products`
+--
+ALTER TABLE `products`
+  ADD CONSTRAINT `products_cat_id_foreign` FOREIGN KEY (`cat_id`) REFERENCES `categories` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
